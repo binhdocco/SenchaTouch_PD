@@ -1,0 +1,60 @@
+.popup-container {
+	z-index: 3;
+	background-color: #333;
+	opacity: 0.5;
+}
+
+.popup-message-container {
+	z-index: 4;
+	background-color: transparent;	
+}
+
+.popup-message-box {
+	width: 270px;
+	height: 393px;
+	background-color: white;
+	border-radius: 5px;
+	margin-left: 25px;
+}
+
+.popup-message-title-box {
+	color: white;
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	text-align: center;
+	height: 55px;
+	background-color: #12ace2;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding-top: 7px;
+}
+
+
+.popup-message-text-box {
+	color: #766f67;
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	text-align: left;	
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-left: 20px;
+	width: 230px;
+}
+
+.popup-message-text-box span {	
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-weight: bold;
+}
+
+
+.popup-message-close-btn {
+	font-size: 30px;
+	background-color: #ff7517;
+	border-radius: 5px;	
+	width: 100px;
+	height: 45px;
+	margin-left: 85px;
+	margin-bottom: 12px;
+}
+
+.popup-message-close-btn .x-button-label {
+	font-size: 16px;
+}

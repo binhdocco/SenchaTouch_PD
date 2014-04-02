@@ -1,0 +1,28 @@
+.menu-toolbar {
+	min-height: 45px;
+}
+.menu-about {
+	margin-top: 20px;	
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	text-align:center;
+	color: #7c766d;	
+	font-size: 20px;
+}
+
+.menu-about span {
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-weight: bold;
+}
+
+.menu-settings-title {
+	color: #0397d6;
+	margin: 0px 17px;
+	margin-bottom: 8px;
+	border-bottom: 2px solid #3c3c46;
+	width: 90%;
+	text-align: left;
+	padding-bottom: 14px;
+	padding-top: 20px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-size: 18px;
+}

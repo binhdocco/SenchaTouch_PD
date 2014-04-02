@@ -1,0 +1,72 @@
+{
+    "name": "PatientDiary",
+    "indexHtmlPath": "index.html",
+    "url": null,
+    "js": [
+        {
+            "path": "libs/sencha-touch-all.js",
+            "x-bootstrap": false
+        },
+        {
+        	"path":"libs/chart/Chart.js",
+        	"bundle": true,
+            "update": true
+        },
+		 {
+        	"path":"app/util/DateUtil.js",
+        	"bundle": true,
+            "update": true
+        },
+        {
+            "path": "app.js",
+            "bundle": true,
+            "update": true
+        }
+    ],
+    
+    "css": [
+        {
+            "path": "resources/css/patient_diary.css",
+            "update": "delta"
+        },
+		{
+            "path": "resources/css/app.css",
+            "update": "delta"
+        },
+		{
+            "path": "resources/css/popup.css",
+            "update": "delta"
+        },
+		{
+            "path": "resources/css/menu.css",
+            "update": "delta"
+        }
+    ],
+    "appCache": {
+        "cache": [
+            "index.html"
+        ],
+        "network": [
+            "*"
+        ],
+        "fallback": []
+    },
+    "extras": [
+        "resources/images",
+        "resources/icons",
+        "resources/loading"
+    ],
+    "ignore": [
+        "\.svn$"
+    ],
+    "archivePath": "archive",
+    "buildOptions": {
+        "product": "touch",
+        "minVersion": 3,
+        "debug": false,
+        "logger": "no"
+    },
+    "requires": [
+    ],
+    "id": "3a867610-670a-11e1-a90e-4318029d18bb"
+}

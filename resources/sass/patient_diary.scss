@@ -1,0 +1,1020 @@
+$ios7-blue: #fff;
+
+@import 'sencha-touch/cupertino-crestor';
+@import 'sencha-touch/cupertino-crestor/all';
+
+.crestor-tabbar-icon-home {
+	background-image: url('../images/icon/home.png');
+	background-size: cover;
+}
+.crestor-tabbar-icon-home-menu {
+	background-image: url('../images/menu/home.png');
+	background-size: cover;
+}
+
+.crestor-tabbar-icon-record {
+  background-image: url('../images/icon/record.png');
+  background-size: cover;
+}
+.crestor-tabbar-icon-progress {
+  background-image: url('../images/icon/progress.png');
+  background-size: cover;
+}
+.crestor-tabbar-icon-appointment {
+  background-image: url('../images/icon/appointment.png');
+  background-size: cover;
+}
+
+.crestor-toolbar-icon-menu {
+	background-image: url('../images/Setting_icon.png');
+	background-size: cover;
+}
+
+.crestor-toolbar-icon-notification {
+	background-image: url('../images/menu/Notification_icon.gif');
+}
+.crestor-toolbar-icon-terms {
+	background-image: url('../images/menu/Terms_agreement_Icon.png');
+}
+.crestor-toolbar-icon-users {
+	background-image: url('../images/menu/Avatar_icon.png');
+}
+
+.crestor-toolbar-icon-settings {
+	background-image: url('../images/menu/Setting_icon.png');
+}
+.crestor-toolbar-icon-signout {
+	background-image: url('../images/menu/Sign_out.png');
+	background-size: 20px;
+}
+
+.crestor-toolbar-icon-back {
+  background-image: url('../images/back_icon_top.png');
+  background-size: cover;
+}
+.crestor-segmentedbuttontabbar-icon-others {
+	background-image: url('../images/record/others_icon.png');
+	background-size: cover;
+}
+.crestor-segmentedbuttontabbar-icon-bloodtest {
+	background-image: url('../images/record/bloodtest_icon.png');
+	width: 36px;
+	height: 20px;
+}
+
+.crestor-button-rectangle {
+	background-image: url('../images/button_bg.png');	
+}
+//OVERRIDE tab/_Panel.scss
+
+//change bg img + font of toolbar
+.x-toolbar{
+	background-image: url('../images/Top_navi_bg.png');
+	.x-title {
+		color: #fff;
+		font-weight: 500;
+		font-size: 1em;
+		padding-top: .3em;
+		font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	}
+}
+
+//change bg img of bottom tabbar
+.x-tabbar.x-docked-bottom  {
+	background-image: url('../images/Bottom_navi_bg.png');
+}
+
+//change bg img of active item in bottom tabbar
+.x-tabbar.x-docked-bottom .x-tab-active {	
+	background-image: url('../images/Bottom_navi_active.png');
+}
+
+//change button width + remove margin between each buttons on tabbar
+.x-tab {
+	height: 3em;
+	width: 5em;//width each button 
+	margin: 0 0;//no margin
+	border: 0;
+	background: transparent;
+	@include st-box-orient(vertical);
+}
+
+//change button icon on tabbar
+.x-tab {	
+	.x-button-icon {
+		display: block;
+		width: 2em;//width of icon image
+		height: 2em;//height of icon image 
+		margin: 0.5em auto;//cover the title text
+		-webkit-text-stroke-width: .35px;
+		-webkit-text-stroke-color: $ios7-blue;
+
+		.x-button-icon.x-hidden {
+			display: none;
+		}
+
+		&:before {
+			color: transparent;
+			font-size: 1.8em;
+			line-height: 1.35em;
+		}
+	}
+}
+//OVERRIDE _Panel.scss
+
+//remove round border on top of toolbar
+.x-toolbar.x-docked-top {
+    @include border-top-radius(0px);//
+}
+
+//
+//OVERRIDE _SegmentedButton
+//for segmentedbutton_tabbar
+.segmentedbutton_tabbar {
+	.x-button {
+		margin: 0 !important;
+		border: 0px solid #807971;//$ios7-blue;
+		border-left: 1px solid #fff;//$ios7-blue;
+		@include border-radius(0);
+		background-color:#94d9f2;
+		height: 41px;
+		padding: 0 19.5px;
+		
+		.x-button-label {
+			color: #fff;
+		}
+		
+		&.x-button-pressed {
+			background-color: #4cc0e9;
+			.x-button-label {
+				color: #fff;
+			}
+		}
+	}
+
+	.x-first {
+		border-left: 0px solid #fff;//$ios7-blue;
+		@include border-left-radius(0px);
+	}
+
+	.x-last {
+		@include border-right-radius(0px);
+		border-right: 0px solid #807971;//$ios7-blue;
+	}
+}
+.segmentedbutton_original {
+  .x-button {
+    margin: 0 !important;
+    border: 1px solid #00a5e0;
+    border-right: 0;
+    @include border-radius(0);
+    .x-button-label {
+      color: #4cc0e9;
+    }
+    &.x-button-pressed {
+      background-color: #4cc0e9;
+      .x-button-label {
+        color: #fff;
+      }
+    }
+  }
+
+  .x-first {
+    @include border-left-radius(6px);
+  }
+
+  .x-last {
+    @include border-right-radius(6px);
+    border-right: 1px solid #00a5e0;
+  }
+}
+.padding9px {
+	.x-button {
+		padding: 0 9px;
+	}
+}
+
+.padding3px {
+	.x-button {
+		padding: 0 3px;
+	}
+}
+
+.segmentedbutton_custom  {
+	.x-button {
+		margin: 0 !important;
+		border: 1px solid #9E9E9E;//$ios7-blue;
+		border-right: 0;
+		@include border-radius(0);		
+		background-image: url('../images/sb_inactive.png');		
+		height: 30px;
+		//width: 152px;
+		.x-button-label {
+			font-family: 'Crestor-ITCAVANTGARDESTD-MD';		
+			color: #585752;
+		}		
+		&.x-button-pressed {
+			//background-color: #fff;
+			background-image: url('../images/sb_active.png');
+			.x-button-label {
+				font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+				color: #585752;
+			}	
+			
+		}	
+	}
+
+	.x-first {
+		@include border-left-radius(6px);		
+	}
+
+	.x-last {
+		@include border-right-radius(6px);
+		border-right: 1px solid #9E9E9E;//$ios7-blue;		
+	}
+}
+
+
+
+
+//embed fonts
+@include font-face('Crestor-MyriadPro-Regular', inline-font-files('crestor/MyriadPro-Regular.otf', opentype));
+@include font-face('Crestor-ITCAVANTGARDESTD-BK', inline-font-files('crestor/ITCAVANTGARDESTD-BK.OTF', opentype));
+@include font-face('Crestor-ITCAVANTGARDESTD-MD', inline-font-files('crestor/ITCAVANTGARDESTD-MD.OTF', opentype));
+
+
+//CSS LIST
+//OVERRIDE dataview/_List
+.record-list {
+  
+	.x-list-item .x-list-disclosure {
+		background-image: url('../images/record/question_icon.png');
+		background-size: cover;
+		//margin: 17px 15px 10px;
+		margin-top: 18px;
+
+		&:before {
+			content: '';
+			font-family: 'Crestor-MyriadPro-Regular';
+		}
+	}
+	
+	.x-list-item {
+		.x-list-item-body,
+		&.x-list-item-tpl .x-innerhtml {
+			//padding: .7em 1em;
+			height: 56px;
+			padding: .25em 1em;
+		}
+	}
+}
+
+.record-type-list {
+  
+  .x-list-item .x-list-disclosure {
+    background-image: url('../images/progress/graph_blue_icon.png');
+    background-size: cover;
+    margin-top: 18px;
+
+    &:before {
+      content: '';
+      font-family: 'Crestor-MyriadPro-Regular';
+    }
+  }
+  
+  .x-list-item {
+    .x-list-item-body,
+    &.x-list-item-tpl .x-innerhtml {
+      //padding: .7em 1em;
+      height: 56px;
+      padding: .25em 1em;
+    }
+  }
+}
+
+.appointment-list {
+  
+  .x-list-item .x-list-disclosure {
+    background-image: url('../images/appointment/edit_icon.png');
+    background-size: cover;
+    margin-top: 18px;
+
+    &:before {
+      content: '';
+      font-family: 'Crestor-MyriadPro-Regular';
+    }
+  }
+  
+  .x-list-item {
+    .x-list-item-body,
+    &.x-list-item-tpl .x-innerhtml {
+      //padding: .7em 1em;
+      height: 56px;
+      padding: .25em 1em;
+    }
+  }
+}
+
+
+/* each row each bg color */
+/*
+.home-effort-list .x-list-item:nth-child(odd), .food-recipe-list .x-list-item:nth-child(odd),
+.food-mealplanning-list .x-list-item:nth-child(odd), .food-recipedetail-list .x-list-item:nth-child(odd),
+.food-grocerylist-list .x-list-item:nth-child(odd)
+ {
+	background-color: #fff;
+
+}
+.home-effort-list .x-list-item:nth-child(even), .food-recipe-list .x-list-item:nth-child(even),
+.food-mealplanning-list .x-list-item:nth-child(even), .food-recipedetail-list .x-list-item:nth-child(even),
+.food-grocerylist-list .x-list-item:nth-child(even)
+{	
+	background-color: #f6eee6;
+}
+*/
+//BUTTON
+.x-button {
+	@include border-radius(0px);	
+}
+.x-button-label {
+	font-size: 12px;	
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+}
+/*
+.x-button.x-button-back {
+	background-image: url('../images/back_icon_top.png');
+	background-size: cover;
+}*/
+//SCROLLBAR
+/*
+.x-scroll-indicator-y {
+	width: 3px;	
+}
+*/
+//FIELDS
+//DROPDOWN
+
+.x-input-el {
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	color: #847e76;
+	text-align:left;
+	background-color: #ebebeb;
+	//padding: .7em .4em .4em .4em;
+	min-height: 29px;//$form-field-height;
+	border-width: 0;
+	-webkit-appearance: none;
+}
+
+.x-field-input {
+	border: 0px solid #9E9E9E;//#cccccc;	
+	border-radius: 0px;
+	background-color: #fff;	
+	height: 45px;
+}
+
+.x-field {
+    .x-input-email {
+    	 font-family: 'Crestor-MyriadPro-Regular';
+    	  color: #847e76;
+        font-size: 18px;
+        padding-left: 35px;
+        //border: 1px solid #ff8430;	
+		   // border-radius: 0px;
+		    background-color: #ededed;
+        background: white url('../images/icon/username.png') no-repeat 10px 10px;
+        background-size: 16px;
+        height: 45px;
+    }
+}
+.x-field{
+    .x-input-password{
+      font-family: 'Crestor-MyriadPro-Regular';
+       color: #847e76;
+        font-size: 18px;
+        padding-left: 35px;
+        //border: 1px solid #ff8430;  
+       // border-radius: 0px;
+        background-color: #ededed;
+        background: white url('../images/icon/password.png') no-repeat 10px 10px;
+        background-size: 16px;
+        height: 45px;
+    }
+}
+.sign_up_form {
+    .x-field{
+      .x-input-password{
+        font-family: 'Crestor-MyriadPro-Regular';
+        color: #847e76;
+        font-size: 16px;
+        padding-left: 5px;  
+        border-radius: 0px;
+        background-color: #ededed;
+        background: #ededed;
+        height: 32px;
+    }
+  }
+}
+.add_record_detail .date_field{
+    .x-input-text{
+      font-family: 'Crestor-MyriadPro-Regular';
+       color: #605950;
+        font-size: 16px;
+        padding-left: 45px;
+        //border: 1px solid #ff8430;  
+       // border-radius: 0px;
+        background-color: #ededed;
+        background: #ededed url('../images/icon/date_icon.png') no-repeat 7px 6px;
+        background-size: 22px;
+    }
+    .x-field-input {
+      //border: 0px solid #9E9E9E;//#cccccc;  
+      border-radius: 0px;
+      //background-color: #ebebeb; 
+      //border: 1px solid #ff8430;
+    }
+    .x-input-el {
+      font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+      color: #766f67;
+      text-align:left;
+      background-color: #ebebeb;
+      //padding: .7em .4em .4em .4em;
+      padding-top: 7px;
+      min-height: 29px;//$form-field-height;
+      border-width: 0;
+      -webkit-appearance: none;
+    }
+}
+
+//RADIO
+.x-input-radio:checked+.x-field-mask::after {
+ color: transparent;
+ background: url('../images/login/check_active.png') no-repeat;
+ width: 20px;
+ height: 20px;
+ margin-top: 10px; 
+}
+.x-field-radio .x-field-mask::after {
+ color: transparent;
+ background: url('../images/login/check_inactive.png') no-repeat;
+ width: 20px;
+ height: 20px;
+ margin-top: 10px; 
+ left: 20px;
+}
+.x-field.x-field-labeled .x-form-label {
+ //display: block !important;
+ color: #786f68;
+ font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+ margin-top: -8px;
+}
+
+.x-field-radio.x-field.x-field-labeled .x-form-label {
+color: #3c3c46;
+font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+margin-left: 20px;
+margin-top: 0px;
+}
+
+/*App*/
+.applogin{
+   background-color: #ededed;
+     background: white url('../images/login/bg.jpg');
+     border: 0px;
+}
+.sign_up_form{
+  padding: 10px 25px 10px 15px;
+  font-size: 14px;
+}
+
+.login_header{
+   background: url('../images/login/patient.png');
+     height: 192px;
+}
+.login_logo_text{
+  background: url('../images/login/logo_text.png') no-repeat ;
+  margin: 10px 45px 20px 45px;
+  height: 50px;
+     
+}
+.signin_button{
+  background-color:#f27935;
+  color: #FFFFFF;
+  border: 0px;
+  margin: 20px 90px 1px 90px;
+  height: 45px;
+}
+.register_button{
+  background-color:#605950;
+  color: #FFFFFF;
+  border: 0px;
+  margin: 5px 90px 1px 90px;
+  height: 45px;
+}
+.email_field{
+  border: 0px;
+  margin: 10px 20px 0px 20px;
+  //border: 1px solid #ff8430;
+}
+.password_field{
+  border: 0px;
+  margin: 5px 20px 0px 20px;
+  //border: 1px solid #ff8430;
+}
+.create_account_button{
+  background-color:#f27935;
+  color: #FFFFFF;
+  border: 0px;
+  margin: 20px 50px 1px 50px;
+  height: 33px;
+}
+/*HOME */
+.home_calendar{
+  height: 100px;
+  border: 1px solid #FFFFFF;
+  background-color: #f5ece3;
+}
+.home_calendar .calendar_icon{
+  background: url('../images/home/calendar_icon.png') no-repeat ;
+  margin-top:12px;
+  margin-left:24px;
+}
+.home_calendar .new_appointment{
+  color: #847e76;
+  font-size: 18px;
+  margin-top:10px;
+}
+.home_calendar .new_appointment .title_text{
+  color: #686157;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-weight: bold;
+	font-size: 15px;
+  
+}
+.home_calendar .new_appointment .date_text{
+	color: #F27935;
+	font-weight: bold;
+	margin-top: 8px;
+}
+.home_calendar .new_appointment .time_text{
+  font-size: 14px;  
+  margin-top: 5px;
+	color: #655e54;
+	font-family: 'Crestor-MyriadPro-Regular';
+}
+.home_doctor{
+  height: 100px;
+  border: 1px solid #FFFFFF;
+  background-color: #ebebeb;
+}
+.home_doctor .doctor_icon{
+  background: url('../images/home/doctor_icon.png') no-repeat ;
+  margin-left: 26px;
+  margin-top: 8px;
+}
+.home_doctor .doctor_info{
+  color: #6f675d;
+  font-size: 14px;
+  margin-top:6px;
+  font-family: 'Crestor-MyriadPro-Regular';
+} 
+.home_doctor .doctor_info .phone{
+  margin-top:5px;
+  font-family: 'Crestor-MyriadPro-Regular';
+}
+.home_doctor .doctor_info .phone .icon{
+  background: url('../images/home/phone_icon.png') no-repeat ;
+  background-size: 15px;
+}
+.home_doctor .doctor_info .address{
+  margin-top:10px;
+  font-family: 'Crestor-MyriadPro-Regular';
+}
+.home_doctor .doctor_info .address .icon{
+  background: url('../images/home/location_icon.png') no-repeat ;
+  background-size: 10px;
+}
+.home_history{
+  color: #847e76;
+  font-size: 16px;
+}
+.home_history_label{
+  margin: 5px 5px 2px 20px;
+	color: #726b63;
+	font-family: 'Crestor-MyriadPro-Regular';
+}
+.home_segmentedbutton{
+  margin: 5px 5px 5px 5px;
+}
+/*RECORD*/
+.record_blood_test .blood_test_header{
+  height: 36px;
+  background-color:#4cc0e9;
+  color:#FFFFFF;
+  font-size: 14px;
+}
+.blood_test_icon{
+  background: url('../images/record/bloodtest_icon.png') no-repeat ;
+  margin-left: 8px;
+ margin-top: 8px;
+ width: 45px;
+}
+
+.record_others .others_header{
+  height: 36px;
+  background-color:#b6b2ad;
+  color:#FFFFFF;
+  font-size: 14px;
+}
+.others_icon{
+  background: url('../images/record/others_icon.png') no-repeat ;
+ margin-left: 8px;
+ margin-top: 8px;
+ width: 30px;
+} 
+.add_icon{
+  background: url('../images/record/add_icon.png') no-repeat ;
+  margin-top: 5px;
+  margin-right: 5px;
+
+	border: 0;
+	background-size: 25px;
+	width: 25px;
+	height: 25px;
+}
+.record_header_group_label, .record_header_date_label, .others_icon_group_label{
+  margin-top: 10px;
+  font-family: 'Crestor-ITCAVANTGARDESTD-MD';	
+}
+
+.record_header_group_label {
+	width: 120px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.record_header_date_label {
+ margin-right: 5px;
+}
+.others_icon_group_label{
+ 	width: 135px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+/* PROGRESS*/
+.progress_chart{
+  border: 1px solid red;
+}
+.progress_buttons{
+  height: 36px;
+}
+.progress_list{
+  border: 1px solid red;
+}
+.record-list .title, .record-type-list .title{
+  color: #12ace2;
+	margin-top: 6px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	width: 202px;
+}
+.record-list .name, .record-type-list .name{
+ 	color: #7e7d79;
+	font-size: 10px;
+	margin-top: 4px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+}
+.record-list .value.orange, .record-type-list .value.orange{
+  position: absolute;
+  right: 50px;
+  width: 50px;
+  top: 15px;
+  border-radius: 129px;
+  background-color:#f27935;
+  color: #FFFFFF;
+  font-size: 13px;
+  text-align: center;
+  height: 25px;
+  padding-top: 4px;
+font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+}
+.record-list .value.blue, .record-type-list .value.blue{
+  position: absolute;
+  right: 50px;
+  width: 50px;
+  top: 15px;
+  border-radius: 129px;
+  background-color:#00a5e0;
+  color: #FFFFFF;
+  font-size: 13px;
+  text-align: center;
+  height: 25px;
+  padding-top: 4px;
+  font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+}
+
+.recorddetail-list {
+}
+
+.recorddetail-list .thumb, .recorddetail-list .info, .recorddetail-list .arrow {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.recorddetail-list .thumb {
+	background: url("../images/appointment/calendar_Blue_Circle.png") no-repeat;
+	width: 45px;
+	height: 45px;
+	color: white;
+	text-align: center;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	padding-top: 4px;
+	font-size: 14px;
+}
+
+.recorddetail-list .thumb.passed {
+	background: url("../images/appointment/calendar_grey_Circle.png") no-repeat;
+}
+
+.recorddetail-list .info {
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-size: 14px;
+	margin-left: 15px;
+	width: 198px;
+	height: 40px;	
+	overflow: hidden;
+}
+
+.recorddetail-list .info .weekday {
+	color: #3c3c46;
+}
+
+.recorddetail-list .info .yourreading {
+	color: #12ace0;
+}
+
+.recorddetail-list .arrow {	
+	width: 15px;
+	height: 24px;
+	margin-left: 15px;
+}
+
+.recorddetail-list .arrow.down {
+	background: url("../images/progress/down_icon.png") no-repeat;
+}
+
+.recorddetail-list .arrow.up {
+	background: url("../images/progress/up_icon.png") no-repeat;
+}
+
+
+.add_record_detail{
+  margin:25px 25px;
+}
+.date_field{
+  //margin-left: 25px;
+  //margin-right: 10px;
+}
+.submit_button{
+  background-color:#f27935;
+  color: #FFFFFF;
+  border: 0px;
+  height: 45px;
+  margin-right: 10px;
+  margin-left: 20px;
+}
+.cancel_button{
+  background-color:#ebebeb;
+  border: 0px;
+  height: 45px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.cancel_button .x-button-label{
+  color: #75706a;
+  
+}
+.chart_legend{
+  color: #b6b2ad;
+  font-size: 13px;
+}
+.blood-test-legend {
+ 	background: url("../images/chart/graph_point_icon.png") no-repeat;
+	background-position: 0px 10px;
+	margin-left: 20px;
+	margin-top: 5px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+}
+
+ .others-legend {
+  	background: url("../images/chart/graph_point_orange_icon.png") no-repeat;
+	background-position: 0 12px;
+	margin-left: -35px;
+	margin-top: 5px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+}
+
+.blood-test-legend .x-innerhtml,  .others-legend .x-innerhtml{
+  margin-left: 20px;
+  margin-top: 12px;
+}
+/*End App*/
+
+/* Touch Calendar*/
+
+/* line 17, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view table {
+  width: 100%;
+  border-collapse: separate;
+  table-layout: fixed;
+  font-size: 12px;
+  /*color: #3F4E5E;*/
+  color:#4cc0e9;
+  background-color: #FFFFFF;
+}
+/* line 28, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view table.week td {
+  vertical-align: top;
+}
+/* line 38, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view table.day td.time-block {
+  text-align: left;
+  background-image: none;
+  font-size: 0.7em;
+  height: 30px;
+}
+/* line 52, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view tbody td {
+  /*border-bottom: 1px solid #a3a7af;
+  border-left: 1px solid #a3a7af;
+  border-right: 1px solid #dadbde;
+  border-top: 1px solid #dadbde;*/
+}
+/* line 62, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td {
+  position: relative;
+  text-align: center;
+  vertical-align: middle;
+  font-size: 1.3em;
+  background-color: #FFFFFF;
+}
+/* line 71, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td.today {
+  color: #FFFFFF;
+  background: url(../images/appointment/calendar_grey_Circle.png) center center no-repeat;
+  background-color: #FFFFFF;
+  background-size: contain;
+}
+/* line 82, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td.unselectable {
+  color: #89909A;
+  background-color: #cda3a8;
+}
+/* line 88, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td.selected {
+  color: #FFFFFF;
+  background: url(../images/appointment/calendar_Blue_Circle.png) center center no-repeat;
+  background-color: #FFFFFF;
+  background-size: contain;
+}
+/* line 98, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td.today.selected {
+  color: #FFFFFF;
+  background: url(../images/appointment/calendar_grey_Circle.png) center center no-repeat;
+  background-color: #FFFFFF;
+  background-size: contain;
+}
+/* line 108, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td.prev-month, .touch-calendar-view td.next-month {
+  color: #89909A;
+}
+/* line 113, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view td.prev-month.selected, .touch-calendar-view td.next-month.selected {
+  color: #FFFFFF;
+}
+/* line 119, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view thead {
+  background-color: #4cc0e9;
+}
+/* line 123, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view thead th {
+  font-size: 9px;
+  vertical-align: bottom;
+  padding-bottom: 3px;
+  color: #FFFFFF;
+  text-align: center;
+  height: 46px;
+}
+/* line 135, ../scss/Ext.ux.TouchCalendar.scss */
+/*.touch-calendar-view thead th:first-child {
+  background: url(../images/appointment/back_calendar_icon.png) center center no-repeat;
+  cursor: pointer;
+}*/
+/* line 141, ../scss/Ext.ux.TouchCalendar.scss */
+/*.touch-calendar-view thead th:last-child {
+  background: url(../images/appointment/next_calendar_icon.png) center center no-repeat;
+  cursor: pointer;
+}*/
+/* line 147, ../scss/Ext.ux.TouchCalendar.scss */
+.touch-calendar-view thead th span {
+  font-size: 16px;
+  height: 30px;
+  left: 10px;
+  position: absolute;
+  text-align: left;
+  top: 15px;
+  width: 50%;
+  z-index: 999;
+}
+.touch-calendar-view .goto-prev {
+  background: url(../images/appointment/back_calendar_icon.png) center center no-repeat;
+}
+.touch-calendar-view .goto-next {
+  background: url(../images/appointment/next_calendar_icon.png) center center no-repeat;
+}
+.touch-calendar-view .add-icon {
+  background: url(../images/appointment/add_icon.png) center center no-repeat;
+}
+
+/*End Touch Calendar*/
+
+.appointmentadd_form {
+	padding: 2px 10px;
+}
+
+.appointmentadd_time_field, .appointmentadd_date_field, 
+.appointmentadd_doctorname_field, .appointmentadd_location_field,
+.appointmentadd_note_field, .appointmentadd_reminder_field,
+.appointmentadd_phone_field  {
+    .x-input-text{
+      font-family: 'Crestor-MyriadPro-Regular';
+       color: #544b40;
+        font-size: 16px;
+        padding-left: 45px;
+        background-color: #ededed;        
+        background-size: 22px;
+        padding-bottom: 10px;
+        resize: none !important;
+    }
+    .x-field-input {
+      border-radius: 0px;
+    }
+    .x-input-el {
+      font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+      color: #766f67;
+      text-align:left;
+      background-color: #ebebeb;
+      padding-top: 7px;
+      min-height: 29px;//$form-field-height;
+      border-width: 0;
+      -webkit-appearance: none;
+    }
+}
+
+
+.appointmentadd_time_field {
+	.x-input-text {
+		background: #ededed url('../images/appointment/clock_icon.png') no-repeat 7px 6px;
+	}
+}
+.appointmentadd_date_field {
+	.x-input-text {
+		background: #ededed url('../images/appointment/date_icon.png') no-repeat 7px 6px;
+	}
+}
+.appointmentadd_doctorname_field {
+	.x-input-text {
+		background: #ededed url('../images/appointment/doctor_icon.png') no-repeat 7px 6px;
+	}
+}
+.appointmentadd_location_field {
+	.x-input-text {
+		background: #ededed url('../images/appointment/location_icon.png') no-repeat 7px 6px;
+	}
+}
+.appointmentadd_note_field {
+	.x-input-text {
+		background: #ededed url('../images/appointment/note_icon.png') no-repeat 7px 6px;
+	}
+}
+
+.appointmentadd_phone_field {
+	.x-input-text {
+		background: #ededed url('../images/appointment/phone_icon.png') no-repeat 7px 6px;
+	}
+}
+
+//DROPDOWN
+.appointmentadd_reminder_field  {
+    .x-input-text{
+      	background-size: contain;
+        background-image: url('../../resources/images/appointment/Dropdown.png');
+		background-repeat: no-repeat;
+		text-align: left;
+		padding-left: 8px;
+		font-size: 14px;
+		background-color: transparent;
+    }   
+}
+//end dropdown

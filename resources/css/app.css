@@ -1,0 +1,78 @@
+/*REVEAL MENU*/
+.menu {
+	background-color:#666057;
+}
+.menubutton{
+	background-color: #6f685f;
+	border-radius: 0px; 
+	border: none;
+}
+.menubutton .x-button-label{
+	text-align:left;
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	margin-left: 10px;
+}
+.x-menu {
+	padding: 5px;
+}
+.x-menu .x-button{
+	margin-bottom: 2px;	
+}
+/*BADGE TEXT*/
+.x-hasbadge .x-badge {
+	background-color: #ff8d0c;
+	top: -3px;
+	right: -3px;
+	min-height: 20px;
+	min-width: 20px;
+	line-height: 20px;
+	font-size: 12px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	padding: 0;
+	font-weight: normal;
+}
+
+/*NAV BUTTONS*/
+.app-nav-back-icon {
+	background-image: url('../images/back_icon_top.png');
+	background-size: cover;
+}
+/*LOADING*/
+.x-mask.x-has-message .x-loading-spinner-outer {
+	height: 60px;
+}
+.x-mask .x-mask-inner .x-mask-message {
+	color: #979797;
+	bottom: 14px;
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-size: 12px;
+}
+/*segmentbutton font size*/
+.segmentedbutton_tabbar .x-button .x-button-label {
+	font-size: 14px;
+}
+/*button round border*/
+.x-button {
+	border-radius: 5px;
+}
+/*
+.x-input-el {	
+	background: none;
+	background-color: #ebebeb;
+	margin-left: 8px;
+	text-align: left;
+	border-radius: 5px;
+	color: #6f685e;
+}
+
+.x-field-input .x-clear-icon {
+	background-size: 70% 70%;
+	margin: 0;
+	margin-top: -1.1em;
+}
+*/
+.input_center .x-input-el {
+	text-align: center;
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+}
+
