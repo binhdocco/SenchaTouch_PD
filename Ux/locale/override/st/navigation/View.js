@@ -36,19 +36,24 @@
             hasPrevious, title;
 			me.endAnimation();
 			
-	        if (item.enableLocale) {
-	            title = (item.getTitle) ? item.getTitle() : item.title || item.config.title;
-	        }
-	        else {
-	            title = (item.getTitle) ? item.getTitle() : item.config.title;
-	        }
+	        title = item.getLocales ? item.getLocales().title : (item.getTitle) ? item.getTitle() : item.config.title;
+	 	
+			
+			backButtonStack.push(title || '&nbsp;');
 	        title = manager.get(title, title);
-	        backButtonStack.push(title || '&nbsp;');
+			
+			//console.log(backButtonStack);
 	        hasPrevious = backButtonStack.length > 1;
 			me.doChangeView(view, hasPrevious, false);
+			me.setTitle(title);
 	   };
-		me.on("back",function(){
-			title = manager.get(locales.title, defaultText);
+		me.on("back",function(){							
+            var backButtonStack = navigationBar.backButtonStack;
+			if (backButtonStack.length > 1)		
+				title = manager.get(backButtonStack[backButtonStack.length-1], defaultText) || backButtonStack[backButtonStack.length-1];
+			else title = manager.get(locales.title, defaultText);
+			//console.log('back title: ', locales.title);
+			//console.log(backButtonStack);
 			navigationBar.setTitle(title);
 		});
 		if (defaultBackButtonText) {
