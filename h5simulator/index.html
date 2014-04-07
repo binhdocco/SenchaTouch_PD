@@ -1,0 +1,151 @@
+﻿<html>
+<header>
+	<title>Mobile Team Simulator</title>
+	<style>
+		* { outline: none !important; }
+		.sky-button {font-weight: bold; padding: 6px;}
+		.float-left {float: left;}
+		.float-right {float: right;}
+		.clear-both {clear: both;}
+		
+		.inset {border: inset;}
+		
+		.alignRight {text-align: right;} 
+		.alignCenter {text-align: center;}  
+		
+		.width80 {width: 80px;} 
+		
+		#siteUrl {width: 489px; border: inset;} 
+		
+		.hidden {visibility: hidden;}  
+		#portraitCover { 
+			padding: 90px 20px;
+			border-radius: 73px;
+			background: black;
+			box-shadow: 0px 0px 12px black;
+		}
+		#portraitViewer { 
+			background: whiteSmoke;  
+		} 
+		.highup {font-weight: bold; background-color: orange; color: white;} 
+	</style>
+	<script type="text/javascript">
+	
+		function loadSite() {
+			var siteUrl = document.getElementById('siteUrl').value;
+			var widthView = document.getElementById('widthView').value;
+			var heightView = document.getElementById('heightView').value;
+			
+			var noscrollbar = '?toolbar=0&amp;navpanes=0&amp;scrollbar=0';
+			var noscrollbar = '';
+			
+			document.getElementById('portraitViewer').src = siteUrl+noscrollbar;  
+			
+			document.getElementById('portraitCover').style.width = parseInt(widthView,10)+10;
+			document.getElementById('portraitCover').style.height = heightView;
+			
+			document.getElementById('portraitViewer').width = widthView; 
+			document.getElementById('portraitViewer').height = heightView; 
+		}
+		function openSite() {
+			var siteUrl = document.getElementById('siteUrl').value;
+			window.open(siteUrl);
+		}
+		
+		function reset() {
+			localStorage.clear();
+			loadSite();
+		}
+		
+		function screenCheck(){
+			
+			var option = document.getElementById("selectScreen");
+			
+			var widthView = document.getElementById('widthView');
+			var heightView = document.getElementById('heightView');
+			
+			var selected = option[option.selectedIndex];
+			
+			if(selected.id == "customScreen"){				
+				widthView.removeAttribute('disabled');
+				heightView.removeAttribute('disabled');
+			}	
+			else{								
+				var selected = option[option.selectedIndex];
+				
+				widthView.value = selected.getAttribute('width');
+				heightView.value = selected.getAttribute('height');
+				
+				widthView.setAttribute('disabled');
+				heightView.setAttribute('disabled');
+			}			
+		}
+		
+		function getValue(){
+			
+			var option = document.getElementById("selectScreen");
+			var selected = option[option.selectedIndex];
+			
+			var widthView = document.getElementById('widthView');
+			var heightView = document.getElementById('heightView');
+			
+			widthView.value = selected.getAttribute('width');
+			heightView.value = selected.getAttribute('height');
+			
+		}
+		
+		function checkProtocol(){
+			if( location.protocol == 'file:' ){
+				var thisPath = "/simulator/index.html";
+				var localUrl = location.pathname.substr(location.pathname.length-thisPath.length);				
+				window.location = 'http://localhost'+localUrl;
+			}
+		}
+		
+	</script> 
+</header>
+
+<body onLoad="checkProtocol(); getValue(); loadSite(); screenCheck();">
+	<center>
+		<input id="siteUrl" class="sky-button" type="text" value="../../www" placeholder="http://" />
+		<button class="sky-button" style=" position: absolute;" onClick="reset()" title="Reset Local Storage">Reset</button> 
+		<button class="sky-button" style=" position: absolute; margin-left: 55px;" onClick="openSite()" title="Open site in new window">Open</button> 
+		<br/>
+		<select id="selectScreen" class="sky-button inset" onchange="screenCheck()">
+			<optgroup label="Tablet">
+				<option id="selectScreenKindleFireHD7" value="" width="533" height="853">Kindle Fire HD 7" <span>533 x 853</span></option>
+				<option id="selectScreenKindleFire" value="" width="600" height="800">Kindle Fire <span>600 x 800</span></option>
+				<option id="selectScreenGoogleNexus7" value="" width="603" height="966">Google Nexus 7 <span>603 x 966</span></option>
+				<option class="highup" id="selectScreenAppleiPad" value="" width="768" height="1024">Apple iPad 1-3/Mini <span>768 x 1024</span></option>
+				<option id="selectScreenKindleFireHD89" value="" width="800" height="1280">Kindle Fire HD 8.9" <span>800 x 1280</span></option>
+			</optgroup>
+			<optgroup label="Mobile">
+				<option id="selectScreenMotorolaRAZRV3m" value="" width="176" height="220"></span>Motorola RAZR V3m <span>176 x 220</span></option>
+				<option id="selectScreenMotorolaRAZRV8" value="" width="240" height="320"></span>Motorola RAZR V8 <span>240 x 320</span></option>
+				<option class="highup" id="selectScreenAppleiPhone34" value="" width="320" height="480">Apple iPhone 3&amp;4 <span>320 x 480</span></option>
+				<option id="selectScreenLGOptimusS" value="" width="320" height="480">LG Optimus S <span>320 x 480</span></option>
+				<option id="selectScreenSamsungGalaxySII" value="" width="320" height="533">Samsung Galaxy SII <span>320 x 533</span></option>
+				<option id="selectScreenASUSGalaxy7" value="" width="320" height="533">ASUS Galaxy 7 <span>320 x 533</span></option>
+				<option class="highup" id="selectScreenAppleiPhone5" selected value="" width="320" height="568">Apple iPhone 5 <span>320 x 568</span></option>
+				<option id="selectScreenBlackBerry10" value="" width="360" height="640">BlackBerry 10 <span>360 x 640</span></option>
+				<option class="highup" id="selectScreenSamsungGalaxySIII" value="" width="360" height="640">Samsung Galaxy SIII <span>360 x 640</span></option>
+			</optgroup>
+			<optgroup label="Custom">
+				<option id="customScreen" value="customScreen" >
+					Custom Screen <span>(Width x Height)</span>
+				</option>
+			</optgroup>
+		</select>		
+		<input id="widthView" disabled class="sky-button width80 alignCenter" type="number" />
+		<input id="heightView" disabled class="sky-button width80 alignCenter" type="number" /> 
+		
+		<button class="sky-button" onClick="loadSite()" title="Load Site">LOAD</button>		
+		
+		<br/>
+		<div id="portraitCover" class="portrait">
+			<iframe id="portraitViewer" class="view-style"></iframe>
+		</div>	
+	</center>
+</body>
+
+</html>
