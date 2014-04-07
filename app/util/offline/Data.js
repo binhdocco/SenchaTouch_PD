@@ -26,7 +26,8 @@ Ext.define('PatientDiary.util.offline.Data',{
 				var limit = 'LIMIT ';
 				if (extra == 'blood') limit += '6';
 				else limit += '3';
-				queryStr = 'SELECT * FROM record r WHERE r.type="' + extra + '" ORDER BY r.time DESC, r.pos ASC ' + limit;
+				queryStr = 'SELECT r.pos, ti.title, r.value, r.color, r.date, r.type, r.time, r.unit, r.id, r.mm, r.dd, r.yy, r.localetime, r.dayname, r.monthname FROM record r LEFT JOIN testitem ti ON r.pos = ti.pos AND r.type = ti.type WHERE r.type="' + extra + '" AND ti.lang="' + lang + '" ORDER BY r.time DESC, r.pos ASC ' + limit;
+				//console.log(queryStr);
 			break;
 
 			case 'Records_Date':
@@ -34,7 +35,8 @@ Ext.define('PatientDiary.util.offline.Data',{
 			break;
 			
 			case 'Records_Filter_Month':
-  				queryStr = 'SELECT SUM(IFNULL(r.value, 0)) as xtotal FROM record r WHERE type="' + extra.type + '" AND mm=' + extra.mm + ' AND yy=' + extra.yy + ' AND pos=' + extra.pos;
+  				queryStr = 'SELECT IFNULL(r.value, 0) as xtotal FROM record r WHERE type="' + extra.type + '" AND mm=' + extra.mm + ' AND yy=' + extra.yy + ' AND pos=' + extra.pos + ' ORDER BY r.dd DESC LIMIT 1';
+				//console.log(queryStr);
   			break;	
 			
 			case 'Records_Detail_Record':
@@ -51,8 +53,12 @@ Ext.define('PatientDiary.util.offline.Data',{
 			
 			case 'Appointments_Next':
   				queryStr = 'SELECT * FROM appointment where time > ' + ((new Date()).getTime() - 2*60*1000) + ' ORDER BY time ASC LIMIT 1';
+				//console.log(queryStr);
   			break;
 			
+			case 'Appointments_Reminder':
+  				queryStr = 'SELECT * FROM appointment where time > ' + (new Date()).getTime() + ' AND didreminder="false" ORDER BY remindertime DESC';
+  			break;
 			//select * from appointment where time > 1395131438436 order by time asc limit 1
 			
   	}
@@ -77,9 +83,9 @@ Ext.define('PatientDiary.util.offline.Data',{
   	var stores = PatientDiary.app.getStores();	
   	Ext.Array.each(stores,function(store,index){			
 		if (store.updateDBQuery) store.updateDBQuery();
-		if (!store.config.doNotReload) {
-			//store.removeAll();
-	  		//store.load();	
+		if (store.config.doReload) {
+			store.removeAll();
+	  		store.load();	
 		}
 		
   	});

@@ -14,7 +14,8 @@ Ext.define('PatientDiary.controller.AppLogin', {
 			signUpFirstname:'applogin sign_up #sign_up_first_name',
 			signUpLastname:'applogin sign_up #sign_up_last_name',
 			signUpEmail:'applogin sign_up #sign_up_email',
-			signUpButton:'applogin sign_in #sign_up_button'
+			signUpButton:'applogin sign_in #sign_up_button',
+			signInButton:'applogin sign_in #sign_in_button'
 			
         },//end refs
         control: {	
@@ -49,13 +50,17 @@ Ext.define('PatientDiary.controller.AppLogin', {
     	var me = this;
     	store.load(function(){
     		if(!store.getData().items.length){
-    			Ext.Msg.alert("Sign In","Please create a new account before sign in");
+    			//Ext.Msg.alert("Sign In","Please create a new account before sign in");
+				//PatientDiary.app.fireEvent('show_alert', "Welcome","You need to create an account to login");
+				PatientDiary.app.fireEvent('show_alert', Ux.locale.Manager.get('MESSAGE_WELCOME_TITLE'),Ux.locale.Manager.get('MESSAGE_NEED_ACCOUNT_TEXT'));
+				me.getSignUpButton().setHidden(false);
+				me.getSignInButton().setHidden(false);
     		}else{
 				var loggedUser = store.data.items[0].data;
 				//console.log(loggedUser);
 				me.getSignInUsername().setValue(loggedUser.username);
 				me.getSignInPassword().setValue(loggedUser.password);				
-    			me.getSignUpButton().setHidden(true);
+    			me.getSignInButton().setHidden(false);
     		}
     	});
     },
@@ -69,7 +74,9 @@ Ext.define('PatientDiary.controller.AppLogin', {
     	var username = this.getSignInUsername().getValue();
     	var password = this.getSignInPassword().getValue();
     	if(username.trim() == "" || password.trim() == ""){
-    		Ext.Msg.alert("Sign In","Please enter username and password!");
+    		//Ext.Msg.alert("Sign In","Please enter username and password!");
+			//PatientDiary.app.fireEvent('show_alert', "Login","Enter username and password");
+			PatientDiary.app.fireEvent('show_alert', Ux.locale.Manager.get('MESSAGE_SIGNIN_TITLE'),Ux.locale.Manager.get('MESSAGE_ENTER_USERNAME_PASSWORD_TEXT'));
     	}else{
     		var store = Ext.getStore('Users');
     		var users = store.getData().items;
@@ -87,7 +94,9 @@ Ext.define('PatientDiary.controller.AppLogin', {
 				PatientDiary.app.fireEvent('user_logged');
     			this.getApp().setActiveItem(1);
     		}else{
-    			Ext.Msg.alert("Sign In","Username and password is invalid");
+    			//Ext.Msg.alert("Sign In","Username and password is invalid");
+				//PatientDiary.app.fireEvent('show_alert', "Login","Invalid username or password");
+				PatientDiary.app.fireEvent('show_alert', Ux.locale.Manager.get('MESSAGE_SIGNIN_TITLE'),Ux.locale.Manager.get('MESSAGE_INVALID_USERNAME_PASSWORD_TEXT'));
     		}
     	}
     	
@@ -119,9 +128,14 @@ Ext.define('PatientDiary.controller.AppLogin', {
     	var email = this.getSignUpEmail().getValue();
     	
     	if(username.trim() == "")
-    	{	Ext.Msg.alert("Sign Up","User name is not valid");
+    	{	
+			//Ext.Msg.alert("Sign Up","User name is not valid");
+			//PatientDiary.app.fireEvent('show_alert', "Sign Up","Invalid username");
+			PatientDiary.app.fireEvent('show_alert', Ux.locale.Manager.get('MESSAGE_REGISTER_TITLE'),Ux.locale.Manager.get('MESSAGE_INVALID_USERNAME_TEXT'));
     	}else if(password.trim() == "" || rePassword.trim() == "" || (password.trim() !=  rePassword.trim())){
-    		Ext.Msg.alert("Sign Up","Password is not valid");
+    		//Ext.Msg.alert("Sign Up","Password is not valid");
+			//PatientDiary.app.fireEvent('show_alert', "Sign Up","Invalid password");
+			PatientDiary.app.fireEvent('show_alert', Ux.locale.Manager.get('MESSAGE_REGISTER_TITLE'),Ux.locale.Manager.get('MESSAGE_INVALID_PASSWORD_TEXT'));
     	}else{
     		var user = Ext.create('PatientDiary.model.User', 
     			{
@@ -134,9 +148,12 @@ Ext.define('PatientDiary.controller.AppLogin', {
     		var me = this;	
     		user.save(function(){
     			me.resetSignUpForm();
-    			Ext.Msg.alert("Sign Up","New account has created sucessful!",function(){    				
+    			//Ext.Msg.alert("Sign Up","New account has created sucessful!",function(){				    				
+				//me.fillUserInfo();
+    			//},this);
+				//PatientDiary.app.fireEvent('show_alert', "Sign Up","Your account has been created.");
+				PatientDiary.app.fireEvent('show_alert', Ux.locale.Manager.get('MESSAGE_REGISTER_TITLE'),Ux.locale.Manager.get('MESSAGE_ACCOUNT_CREATED_TEXT'));
 				me.fillUserInfo();
-    			},this);
     		});
     	}
     	

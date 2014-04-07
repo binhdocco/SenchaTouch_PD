@@ -416,6 +416,28 @@ Ext.define('PatientDiary.util.offline.Proxy', {
         me.queryDB(me.getDb(), sql, onSuccess, onError, values);
         return true;
     },
+	removeAllRecords: function(tablename, callback, opts) { //opts: [ ['key', 'value]]
+        var me = this,
+            values = [],
+            onSuccess = function(tx, rs) {
+              if (callback) callback();
+            },
+            onError = function(tx, err) {
+                me.throwDbError(tx, err);
+            };
+        var sql = 'DELETE FROM ' + tablename;
+        //values.push(id);
+		
+		if (opts) {
+			sql +=  ' WHERE ';
+			Ext.Array.each(opts, function(value, index){
+				sql += ' AND ' + value[0] + ' = ?';
+				 values.push(value[1]);
+			});
+		}
+        me.queryDB(me.getDb(), sql, onSuccess, onError, values);
+        return true;
+    },
     
     /**
      * Destroys all records stored in the proxy 

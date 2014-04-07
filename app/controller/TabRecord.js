@@ -40,7 +40,7 @@ Ext.define('PatientDiary.controller.TabRecord', {
 			},
 			'tab_record_recordadd button[title = "recordaddcancelbutton"]': {
 				tap: function() {
-					this.getTabRecord().pop(1);	
+					this.getTabRecord().onBackButtonTap();	
 				}				
 			},
 			
@@ -58,7 +58,7 @@ Ext.define('PatientDiary.controller.TabRecord', {
 			},
 			'tab_record_recordotheradd button[title = "recordotheraddcancelbutton"]': {
 				tap: function() {
-					this.getTabRecord().pop(1);	
+					this.getTabRecord().onBackButtonTap();	
 				}				
 			},
 			
@@ -83,7 +83,7 @@ Ext.define('PatientDiary.controller.TabRecord', {
 	onRecordAddSubmitClicked: function() {
 		//console.log('onRecordAddSubmitClicked');
 		var me = this;
-		me.getTabRecord().pop(1);
+		me.getTabRecord().onBackButtonTap();
 		var data = me._recordAddView.getRecordData();
 		//console.log(data);	
 		me.getTabRecord().deleteOldData(data.dateValue, function() {
@@ -108,7 +108,7 @@ Ext.define('PatientDiary.controller.TabRecord', {
 	onRecordOtherAddSubmitClicked: function() {
 		//console.log('onRecordAddSubmitClicked');
 		var me = this;
-		me.getTabRecord().pop(1);
+		me.getTabRecord().onBackButtonTap();
 		var data = me._recordOtherAddView.getRecordData();
 		//console.log(data);	
 		me.getTabRecord().deleteOldData(data.dateValue, function() {
@@ -154,9 +154,10 @@ Ext.define('PatientDiary.controller.TabRecord', {
 		if (!this._datepicker) {
 			this._datepicker = Ext.create('Ext.picker.Date', {
 				value: date
-			});
-			this._datepicker.on('change', this.onDatePickerDone, this, {view: view, tf: tf});
+			});			
 		}
+		this._datepicker.un('change', this.onDatePickerDone, this);
+		this._datepicker.on('change', this.onDatePickerDone, this, {view: view, tf: tf});
 		return this._datepicker;
 	},
 	

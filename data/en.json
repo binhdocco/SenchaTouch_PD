@@ -1,0 +1,49 @@
+{
+    "tests": [
+        {
+            "title": "Fasting glucose",
+            "pos": 1,
+			"type": "blood"
+        },
+        {
+            "title": "Total cholesterol",
+            "pos": 2,
+			"type": "blood"
+        },
+        {
+            "title": "LDL 'Bad' cholesterol",
+            "pos": 3,
+			"type": "blood"
+        },
+        {
+            "title": "HDL 'Good' cholesterol",
+            "pos": 4,
+			"type": "blood"
+        },
+        {
+            "title": "Triglycerides",
+            "pos": 5,
+			"type": "blood"
+        },
+        {
+            "title": "Total cholesterol/HDL<br/>ratio",
+            "pos": 6,
+			"type": "blood"
+        },
+        {
+            "title": "Blood pressure",
+            "pos": 1,
+			"type": "other"
+        },
+        {
+            "title": "Body Mass Index (BMI)",
+            "pos": 2,
+			"type": "other"
+        },
+        {
+            "title": "Waist circumference",
+            "pos": 3,
+			"type": "other"
+        }
+    ]
+}

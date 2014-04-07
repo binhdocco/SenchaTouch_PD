@@ -55,7 +55,10 @@ Ext.define('PatientDiary.view.tab.progress.DetailChart', {
 		var thisObj = this;
 		var today = new Date();
 		var dif = (new Date()).getMonth() - diffmonth;
-		var p = new Date(today.setMonth(dif));
+		//var p = new Date(today.setMonth(dif));
+		var p = new Date();
+		p.setDate(1);
+		p.setMonth(dif);
 				
 		this.getData()['labels'].push(p.getShortMonthName() + ' ' + p.getFullYear());
 		var filterTotalData = {mm: p.getMonth(), yy: p.getFullYear(), pos: thisObj.getRecordData().pos, type: thisObj.getRecordData().type};
@@ -64,7 +67,11 @@ Ext.define('PatientDiary.view.tab.progress.DetailChart', {
 		var totalStore = Ext.getStore('Records_Filter_Month');
 		totalStore.getProxy().config.dbConfig.dbQuery = PatientDiary.util.CommonUtil.offline.getDbQueryString("Records_Filter_Month",'', filterTotalData);
 		totalStore.load(function(){
-			thisObj.getData()['value'][diffmonth] = totalStore.data.all[0].raw.xtotal;
+			//thisObj.getData()['value'][diffmonth] = totalStore.data.all[0].raw.xtotal;
+			if (totalStore.data.all[0])
+				thisObj.getData()['value'][diffmonth] = totalStore.data.all[0].raw.xtotal;
+			else 
+				thisObj.getData()['value'][diffmonth] = 0;
 			//thisObj.checkGetDataDone();
 			/*var badStore = Ext.getStore('Records_Filter_Month');
 			badStore.getProxy().config.dbConfig.dbQuery = PatientDiary.util.CommonUtil.offline.getDbQueryString("Records_Filter_Month",'', filterBadData);

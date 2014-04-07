@@ -17,6 +17,6 @@ Ext.define('PatientDiary.view.component.RecordList', {
 		
 	initialize: function() {
 		this.callParent(arguments);
-		//Ux.locale.Manager.applyLocaleForCmp(this);
+		Ux.locale.Manager.applyLocaleForCmp(this);
 	}
 });

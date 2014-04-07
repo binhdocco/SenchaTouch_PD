@@ -5,12 +5,13 @@ Ext.define('PatientDiary.view.tab.Progress', {
 		'PatientDiary.view.tab.progress.ProgressChart',
 		'PatientDiary.view.tab.progress.RecordTypeList'
 	],
-	config: {     
+	config: {  
+		title:'',   
 		localize:true,
         locales:{
         	title:'YOUR_PROGRESS_TITLE'
         },   
-		autoDestroy: false,
+		//autoDestroy: false,
         iconCls: 'crestor-tabbar-icon-progress',
         items:[{
         	xtype:'container',
@@ -28,15 +29,15 @@ Ext.define('PatientDiary.view.tab.Progress', {
         		items:[
         			{
 						xtype:'container',
-						html: 'Total cholesterol',
+						html: '',//Total cholesterol
 						cls: 'blood-test-legend',
-						flex: 1
+						//flex: 1
 					},
 					{
 						xtype:'container',
-						html: 'LDL "Bad" cholesterol',
+						html: '',//LDL "Bad" cholesterol
 						cls: 'others-legend',
-						flex: 1
+						//flex: 1
 					}
         		],
         		flex: 0.2
@@ -61,13 +62,21 @@ Ext.define('PatientDiary.view.tab.Progress', {
 					items: [
 	                    {
 							viewIndex: 0,
-	                        text: 'Blood tests',
+	                        text: '',//Blood tests
+	                        localize:true,
+					        locales:{
+					        	text:'BLOOD_TESTS_LABEL'
+					        }, 
 	                        iconCls: 'crestor-segmentedbuttontabbar-icon-bloodtest',
 	                        pressed: true		                        
 	                    },
 	                    {
 							viewIndex: 1,
-	                       	text: 'Others',
+	                       	text: '',//Others
+	                       	localize:true,
+					        locales:{
+					        	text:'OTHERS_LABEL'
+					        }, 
 	                        iconCls: 'crestor-segmentedbuttontabbar-icon-others',						
 	                    }
 	                ]  
@@ -88,9 +97,19 @@ Ext.define('PatientDiary.view.tab.Progress', {
 		    delay: 100
 		});
    },
+   
+   setLocale: function(locale) {
+   		var me = this;
+   		me.callParent(arguments);
+		
+		me._bloodLegend.setHtml(Ux.locale.Manager.get('HISTORY_TOTAL_CHOLESTEROL_LABEL', locale));
+		me._otherLegend.setHtml(Ux.locale.Manager.get('LDL_BAD_CHOLESTEROL_LABEL', locale));
+		
+		//me._segButton.setLocale(locale);
+   },
 
    activeHandler:function(){
-   		console.log('activeHandler');
+   		//console.log('activeHandler');
 		var chart = this.items.items[0].getItems().items[1];
 		chart.showChart();
 	},
@@ -106,6 +125,16 @@ Ext.define('PatientDiary.view.tab.Progress', {
 		}
 		if (!me._segButton) {
 			me._segButton = me.down('segmentedbutton');//me._segButton.setPressedButtons(0);
+		}
+		if (!me._bloodLegend) {
+			me._bloodLegend = me.down('container[cls = "blood-test-legend"]');
+		}
+		if (!me._otherLegend) {
+			me._otherLegend = me.down('container[cls = "others-legend"]');
+		}
+		if (!me._segButton) {
+			me._otherLegend = me.down('segmentedbutton');
+			
 		}
 	}
    

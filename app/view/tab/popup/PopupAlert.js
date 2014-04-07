@@ -1,6 +1,6 @@
-Ext.define('PatientDiary.view.tab.popup.PopupMessage', {
+Ext.define('PatientDiary.view.tab.popup.PopupAlert', {
     extend: 'Ext.Container',
-    xtype: 'tab_popup_popupmessage',
+    xtype: 'tab_popup_popupalert',
     requires: [
 
 	],
@@ -17,7 +17,7 @@ Ext.define('PatientDiary.view.tab.popup.PopupMessage', {
             duration: 100
         },
 		data: null,	
-		cls: 'popup-message-container',
+		cls: 'popup-alert-container',
 		layout: {
 			type:'vbox',
 			pack: 'center'
@@ -30,11 +30,10 @@ Ext.define('PatientDiary.view.tab.popup.PopupMessage', {
    
    updateData: function() {
    		var text = this.getTextView();
-		var msgText = text.down('container[cls = "popup-message-text-box"]');
-		msgText.setHtml(this.getData()['msg']);
-		msgText.getScrollable().getScroller().scrollToTop();
-		
-		var titleText = text.down('container[cls = "popup-message-title-box"]');
+		var msgText = text.down('container[cls = "popup-message-text-box alert"]');
+		msgText.setHtml('<div class="content">' + this.getData()['msg'] + '</div>');
+				
+		var titleText = text.down('container[cls = "popup-alert-title-box"]');
 		titleText.setHtml(this.getData()['title']);
 		
    },
@@ -47,7 +46,7 @@ Ext.define('PatientDiary.view.tab.popup.PopupMessage', {
    getTextView: function() {
    		if (!this._text) {
 			this._text = Ext.create('Ext.Container', {
-				cls:'popup-message-box',
+				cls:'popup-alert-box',
 				layout: {
 					type:'vbox',
 					pack: 'center'
@@ -55,15 +54,13 @@ Ext.define('PatientDiary.view.tab.popup.PopupMessage', {
 				items: [
 					{
 						xtype: 'container',
-						cls: 'popup-message-title-box',
+						cls: 'popup-alert-title-box',
 						html: 'YOUR TITLE HERE'					
 					},
 					{
 						xtype: 'container',
-						cls: 'popup-message-text-box',
-						html: 'YOUR MESSAGES HERE',
-						flex: 1,
-						scrollable: true
+						cls: 'popup-message-text-box alert',
+						html: 'YOUR MESSAGES HERE'						
 					},
 					{
 						xtype: 'button',

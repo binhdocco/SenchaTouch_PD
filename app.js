@@ -13,7 +13,7 @@ Ext.onReady(function(){
         dbDescription: "Patient Diary"
     };
    PatientDiary.util.CommonUtil.dbConnection = Ext.create('PatientDiary.util.offline.Connection',dbconnval);
-   PatientDiary.util.CommonUtil.offline = Ext.create('PatientDiary.util.offline.Data',{});
+   PatientDiary.util.CommonUtil.offline = Ext.create('PatientDiary.util.offline.Data',{});   
 });
 Ext.application({
     name:'PatientDiary',
@@ -40,7 +40,8 @@ Ext.application({
     	'User',
     	'Type',
     	'Appointment',
-		'System'
+		'System',
+		'TestItem'
     ],
     stores:[
     	'Records',
@@ -55,7 +56,10 @@ Ext.application({
 		'Appointments_Selected_Date',
 		'Appointments',
 		'Appointments_Next',
-		'Systems'
+		'Appointments_Reminder',
+		'Systems',
+		'LocaleDatas',
+		'LocaleDatas_Delete'
 	],
 	startupImage: {
         '320x460': 'resources/startup/Default.png', // Non-retina iPhone, iPod touch, and all Android devices
@@ -81,35 +85,47 @@ Ext.application({
     	
     },
     onDeviceReady:function(){
-    	PatientDiary.util.CommonUtil.preferredLanguage();
+		var localDataStore = Ext.getStore('LocaleDatas_Delete');
+		localDataStore.getProxy().removeAllRecords('testitem', function(){
+			PatientDiary.util.CommonUtil.readAndSaveLocaleData('en');
+			PatientDiary.util.CommonUtil.preferredLanguage();
 		
-		var storeSystem = Ext.getStore('Systems');
-		storeSystem.load(function(){				
-			if(storeSystem.getCount()){					
-				Ext.Array.each(storeSystem.getData().items, function(item, index) {	
-					if (item)	{
-						var sname = item.data.name;										
-						if (sname == 'language') {					
-							
-							PatientDiary.util.CommonUtil.langModel = item;
-							if (PatientDiary.util.CommonUtil.getLang() != item.data.value) {
-								PatientDiary.util.CommonUtil.setLang(item.data.value);
+			var storeSystem = Ext.getStore('Systems');
+			storeSystem.load(function(){				
+				if(storeSystem.getCount()){					
+					Ext.Array.each(storeSystem.getData().items, function(item, index) {	
+						if (item)	{
+							var sname = item.data.name;										
+							if (sname == 'language') {					
+								
+								PatientDiary.util.CommonUtil.langModel = item;
+								if (PatientDiary.util.CommonUtil.getLang() != item.data.value) {
+									PatientDiary.util.CommonUtil.setLang(item.data.value);
+								}
+								
+							} else if (sname == 'doctor') {
+								PatientDiary.util.CommonUtil.doctorModel = item;
+							} else if (sname == 'code') {
+								if (item.data.value == 'activated') {
+									PatientDiary.util.CommonUtil.codeActivated = true;
+								}
 							}
-							
-						}
-					}				
-					
-				});				
-        	}
-			console.log('[check system starts] lang = ', PatientDiary.util.CommonUtil.getLang());
-	    	Ext.Viewport.add({
-	        	xtype: 'app'
-	    	});
-	    	var menu = Ext.create('PatientDiary.view.AppMenu');
-	    	Ext.Viewport.setMenu(menu, {
-	            side: 'left',
-	            reveal: true
-	        });
-	   });   
+						}				
+						
+					});				
+	        	}
+				console.log('[check system starts] lang = ', PatientDiary.util.CommonUtil.getLang());
+		    	Ext.Viewport.add({
+		        	xtype: 'app'
+		    	});
+		    	var menu = Ext.create('PatientDiary.view.AppMenu');
+		    	Ext.Viewport.setMenu(menu, {
+		            side: 'left',
+		            reveal: true
+		        });
+		   }); 
+		});
+		
+    	  
     }
 });

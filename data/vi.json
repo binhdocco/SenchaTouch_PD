@@ -1,0 +1,49 @@
+{
+    "tests": [
+        {
+            "title": "Duong huyet",
+            "pos": 1,
+			"type": "blood"
+        },
+        {
+            "title": "Cholesterol toan phan",
+            "pos": 2,
+			"type": "blood"
+        },
+        {
+            "title": "Cholesterol LDL xau",
+            "pos": 3,
+			"type": "blood"
+        },
+        {
+            "title": "Cholesterol HDL tot",
+            "pos": 4,
+			"type": "blood"
+        },
+        {
+            "title": "Chat beo",
+            "pos": 5,
+			"type": "blood"
+        },
+        {
+            "title": "Cholesterol t.phan/HDL",
+            "pos": 6,
+			"type": "blood"
+        },
+		{
+            "title": "Huyet ap",
+            "pos": 1,
+			"type": "other"
+        },
+		{
+            "title": "BMI",
+            "pos": 2,
+			"type": "other"
+        },
+		{
+            "title": "Vong eo",
+            "pos": 3,
+			"type": "other"
+        }
+    ]
+}

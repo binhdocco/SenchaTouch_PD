@@ -75,7 +75,10 @@ Ext.define('PatientDiary.view.tab.progress.ProgressChart', {
 		var thisObj = this;
 		var today = new Date();
 		var dif = (new Date()).getMonth() - diffmonth;
-		var p = new Date(today.setMonth(dif));
+		//var p = new Date(today.setMonth(dif));
+		var p = new Date();
+		p.setDate(1);
+		p.setMonth(dif);
 				
 		this.getData()['labels'].push(p.getShortMonthName() + ' ' + p.getFullYear());
 		var filterTotalData = {mm: p.getMonth(), yy: p.getFullYear(), pos: 2, type: 'blood'};
@@ -84,12 +87,20 @@ Ext.define('PatientDiary.view.tab.progress.ProgressChart', {
 		var totalStore = Ext.getStore('Records_Filter_Month');
 		totalStore.getProxy().config.dbConfig.dbQuery = PatientDiary.util.CommonUtil.offline.getDbQueryString("Records_Filter_Month",'', filterTotalData);
 		totalStore.load(function(){
-			thisObj.getData()['total_cholesterol'][diffmonth] = totalStore.data.all[0].raw.xtotal;
+			if (totalStore.data.all[0])
+				thisObj.getData()['total_cholesterol'][diffmonth] = totalStore.data.all[0].raw.xtotal;
+			else 
+				thisObj.getData()['total_cholesterol'][diffmonth] = 0;
+			//thisObj.getData()['total_cholesterol'][diffmonth] = totalStore.data.all[0].raw.xtotal;
 			//thisObj.checkGetDataDone();
 			var badStore = Ext.getStore('Records_Filter_Month');
 			badStore.getProxy().config.dbConfig.dbQuery = PatientDiary.util.CommonUtil.offline.getDbQueryString("Records_Filter_Month",'', filterBadData);
 			badStore.load(function(){
-				thisObj.getData()['bad_cholesterol'][diffmonth] = badStore.data.all[0].raw.xtotal;
+				if (totalStore.data.all[0])
+					thisObj.getData()['bad_cholesterol'][diffmonth] = badStore.data.all[0].raw.xtotal;
+				else 
+					thisObj.getData()['bad_cholesterol'][diffmonth] = 0;
+				//thisObj.getData()['bad_cholesterol'][diffmonth] = badStore.data.all[0].raw.xtotal;
 				thisObj.checkGetDataDone();
 			});
 		});

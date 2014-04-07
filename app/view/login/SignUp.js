@@ -4,14 +4,28 @@ Ext.define('PatientDiary.view.login.SignUp', {
     requires: [
     		     
     ],
-    config: {
+    config: {		
+		showAnimation: {
+            type: "fadeIn",
+           //direction: "down",
+            duration: 100
+        },
+        hideAnimation: {
+            type: "fadeOut",
+            //direction: "up",
+            duration: 100
+        },
         layout:{
 			type:'vbox'
 		},
 		items:[
 			{
 				xtype:'titlebar',
-				title:'New Account',
+				//title:'New Account',
+				localize:true,
+		        locales:{
+		        	title:'NEW_ACCOUNT_TITLE'
+		        }, 
 				docked:'top',
 				items:[
 					{
@@ -36,36 +50,60 @@ Ext.define('PatientDiary.view.login.SignUp', {
 				items:[
 					{
 						xtype:'textfield',
-						label: 'Username',
+						//label: 'Username',
+						localize:true,
+				        locales:{
+				        	label:'USERNAME_TEXT'
+				        }, 
 						id:'sign_up_username',
 						required:true
 					},
 					{
 						xtype:'passwordfield',
-						label: 'Password',
+						//label: 'Password',
+						localize:true,
+				        locales:{
+				        	label:'PASSWORD_TEXT'
+				        },
 						id:'sign_up_password',
 						required:true
 					},
 					{
 						xtype:'passwordfield',
-						label: 'Re-Password',
+						//label: 'Re-Password',
+						localize:true,
+				        locales:{
+				        	label:'REPASSWORD_TEXT'
+				        },
 						id:'sign_up_re_password',
 						required:true
 					},
 					{
 						xtype:'textfield',
-						label: 'First name',
+						//label: 'First name',
+						localize:true,
+				        locales:{
+				        	label:'FIRSTNAME_TEXT'
+				        },
 						id:'sign_up_first_name'
 						
 					},
 					{
 						xtype:'textfield',
-						label: 'Last name',
+						//label: 'Last name',
+						localize:true,
+				        locales:{
+				        	label:'LASTNAME_TEXT'
+				        },
 						id:'sign_up_last_name'
 					},
 					{
 						xtype:'textfield',
-						label: 'Email',
+						//label: 'Email',
+						localize:true,
+				        locales:{
+				        	label:'EMAIL_TEXT'
+				        },
 						id:'sign_up_email'
 					},
 					/*{
@@ -95,7 +133,11 @@ Ext.define('PatientDiary.view.login.SignUp', {
 					},*/
 					{
 						xtype: 'button',
-						text: 'CREATE ACCOUNT',
+						//text: 'CREATE ACCOUNT',
+						localize:true,
+				        locales:{
+				        	text:'CREAT_ACCOUNT_TEXT'
+				        },
 						cls:'create_account_button',
 						id:'create_account_button'
 					}

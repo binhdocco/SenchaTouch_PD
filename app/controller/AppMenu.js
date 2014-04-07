@@ -38,6 +38,7 @@ Ext.define('PatientDiary.controller.AppMenu', {
 			},
 			'appmenu button[menu = "logout"]':{
 				tap: function(button) {
+					PatientDiary.app.fireEvent('user_logout');
 					this.getApp().setActiveItem(0);
 					this.showMenuViewAtIndex(0);					
 					this.getAppTab().setActiveItem(0);

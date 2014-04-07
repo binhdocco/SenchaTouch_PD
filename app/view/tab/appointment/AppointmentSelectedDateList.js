@@ -16,6 +16,10 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentSelectedDateList', {
 	
 	initialize: function() {
 		this.callParent(arguments);
+		
+	},
+	setLocale:function(locale){
+		this.callParent(arguments);
 		var str = [
 				'<tpl if="this.checkPassed(time)">',
 					'<div class="thumb passed">{dd}<br/>{monthname}</div>',
@@ -24,10 +28,10 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentSelectedDateList', {
 				'</tpl>',
 				'<div class="info">',
 					'<div class="weekday">{dayname}, {hourminute}</div>',
-					'<div class="yourreading">with Dr. {doctorname}</div>',
+					'<div class="yourreading">{0} {doctorname}</div>',
 				'</div>',
 				'<div class="arrow"></div>'].join("");
-		
+		str = str.replace('{0}', Ux.locale.Manager.get('WITH_TEXT'));
 		var tpl = new Ext.XTemplate(//'<div class= "thumb" id ="{id}_{info_id}">{[this.counter()]}</div>',
 			str, 
 			{
@@ -38,5 +42,5 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentSelectedDateList', {
         );
 		
 		this.setItemTpl(tpl);		
-	}
+	},
 });

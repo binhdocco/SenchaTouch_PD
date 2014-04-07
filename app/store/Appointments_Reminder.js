@@ -1,15 +1,14 @@
-Ext.define('PatientDiary.store.Appointments_Selected_Date', {
+Ext.define('PatientDiary.store.Appointments_Reminder', {
     extend: 'Ext.data.Store',
     config: {
        	model: 'PatientDiary.model.Appointment',
         autoLoad: false,
-		doReload: true,
 		proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
 	    		tablename:'appointment',
     			dbConn: PatientDiary.util.CommonUtil.dbConnection,
-    			dbQuery: ''//PatientDiary.util.CommonUtil.offline.getDbQueryString("Appointments_Selected_Date",PatientDiary.util.CommonUtil.getLang(),{mm,yy})
+    			dbQuery: PatientDiary.util.CommonUtil.offline.getDbQueryString("Appointments_Reminder",PatientDiary.util.CommonUtil.getLang())
     		},
     		reader: {
                type: 'array'
@@ -17,6 +16,6 @@ Ext.define('PatientDiary.store.Appointments_Selected_Date', {
        }		
     },
 	updateDBQuery: function() {
-		console.log(this.getProxy().config.dbConfig.dbQuery);
+		this.getProxy().config.dbConfig.dbQuery = PatientDiary.util.CommonUtil.offline.getDbQueryString("Appointments_Reminder",PatientDiary.util.CommonUtil.getLang());
 	}
 });

@@ -13,8 +13,17 @@ Ext.define('PatientDiary.util.CommonUtil',{
 	info: 'getInfo.json',
 	fullPath:'data',
 	imagePath:'data/images',*/
+	codeActivated: false,
+	langModel: null,
+	doctorModel: null,
 	userLogged: false,	
 	useBackend:false,
+	buildActivateCodeApi:function(type, code){
+		var api = "";
+		api = this.serverUrl + this[type];
+		api += '/' + code ;
+		return api;
+	},
 	buildApi:function(type,lang,datetime){
 		var api = "";
 		api = this.serverUrl + this[type];
@@ -122,12 +131,37 @@ Ext.define('PatientDiary.util.CommonUtil',{
 	preferredLanguage:function(){
 		try{
 			navigator.globalization.getPreferredLanguage(
-			    function (language) {this.setLang(language.value);},
+			    function (language) {
+					this.setLang(language.value);
+					this.loadLocaleData(language.value);
+				},
 			    function () {alert('Error getting language\n');}
 			);
 		}catch(e){
 			var language = navigator.language? navigator.language.split('-')[0] : navigator.userLanguage.split('-')[0];
 			this.setLang(language);
+			this.loadLocaleData(language);
 		}
-	}
+	},
+	loadLocaleData: function(lang) {
+		//console.log('=== loadLocaleData: ' + lang);
+		if (lang != 'en') {
+			this.readAndSaveLocaleData(lang);
+		}
+	},
+	readAndSaveLocaleData: function(lang) {
+		//console.log('=== readAndSaveLocaleData: ' + lang);
+		var store = new PatientDiary.store.LocaleDatas();
+		store.getProxy().setUrl('data/' + lang + '.json');
+		store.load(function(records) {
+			//console.log(records);
+			Ext.Array.each(records, function(item, index){
+				//console.log(item);
+				item.data.lang = lang;
+				item.save();
+			});
+		});
+		//console.log(store);
+		//store
+	},	
 });

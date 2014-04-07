@@ -41,19 +41,19 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
 					},					
 					{
 						xtype:'numberfield',
-						label: 'Blood pressure<br/>(mmHg)',
+						label: '',//Blood pressure<br/>(mmHg)
 						value:'0',
 						name: 'blood_pressure'
 					},
 					{
 						xtype:'numberfield',
-						label: 'Body Mass Index (BMI)',
+						label: '',//Body Mass Index (BMI)
 						value:'0',
 						name: 'bmi'
 					},
 					{
 						xtype:'numberfield',
-						label: 'Waist circumference<br/>(inches)',
+						label: '',//Waist circumference<br/>(inches)
 						value:'0',
 						name: 'waist_circumference'
 					},
@@ -92,7 +92,7 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
     },
 	initialize: function() {
 		this.callParent(arguments);
-		//this.resetView();
+		this.resetView();
 		if (!this._localized) {
 			Ux.locale.Manager.applyLocaleForCmp(this);
 			var submitBtn = this.down('button[title = "recordotheraddsubmitbutton"]');
@@ -101,6 +101,19 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
 			Ux.locale.Manager.applyLocaleForCmp(cancelBtn);
 			this._localized = true;
 		}
+	},
+	
+	setLocale : function(locale) {
+		var me = this;
+		me.callParent(arguments);
+		me._BLOOD_PRESSURE_LABEL = Ux.locale.Manager.get('BLOOD_PRESSURE_LABEL', locale);
+		me._bloodPressureField.setLabel(me._BLOOD_PRESSURE_LABEL + '<br/>(mmHg)');
+		
+		me._BMI_LABEL = Ux.locale.Manager.get('BMI_LABEL', locale);
+		me._bmiField.setLabel(me._BMI_LABEL);
+		
+		me._WAIST_CIRCUMFERENCE_LABEL = Ux.locale.Manager.get('WAIST_CIRCUMFERENCE_LABEL', locale);
+		me._waistCircumferenceField.setLabel(me._WAIST_CIRCUMFERENCE_LABEL + '<br/>(inches)');	
 	},
 	
 	updateSelectedDate: function(date) {
@@ -171,7 +184,7 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
 		var mm = me._selectedDate.getMonth().toString();
 		var yy = me._selectedDate.getFullYear().toString();
 		var dayname = me._selectedDate.getDayName();
-		var localetime = (new Date()).toLocaleTimeString();
+		var localetime = (new Date()).format('h:MM TT');//toLocaleTimeString();
 		var monthname = me._selectedDate.getShortMonthName().toUpperCase();
 		
 		var bloodPressureValue = me._bloodPressureField.getValue();
@@ -181,7 +194,7 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
 			dateValue: dateValue,
 			data:[
 				{
-					title: 'Blood pressure',
+					title: me._BLOOD_PRESSURE_LABEL,//'Blood pressure',
 					unit: '(mmHg)',
 					value: bloodPressureValue,
 					color: 'blue',
@@ -196,7 +209,7 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
 					monthname: monthname,
 					localetime:localetime
 				},{
-					title: 'Body Mass Index (BMI)',
+					title: me._BMI_LABEL,//'Body Mass Index (BMI)',
 					unit: '',
 					value: bmiValue,
 					color: 'blue',
@@ -211,7 +224,7 @@ Ext.define('PatientDiary.view.tab.record.RecordOtherAdd', {
 					monthname: monthname,
 					localetime:localetime
 				},{
-					title: 'Waist circumference',
+					title: me._WAIST_CIRCUMFERENCE_LABEL,//'Waist circumference',
 					unit: '(inches)',
 					value: waistCircumferenceValue,
 					color: 'blue',

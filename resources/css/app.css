@@ -76,3 +76,19 @@
 	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
 }
 
+/*ACTIVATE*/
+.activate-submit-btn {
+	font-size: 30px;
+	background-color: #ff7517;
+	border-radius: 5px;	
+	width: 100px;
+	height: 40px;
+	/*margin-left: 17px;*/
+	margin-top: 35px;
+}
+
+.activate-submit-btn .x-button-label{
+	font-size: 16px;
+	margin-top: 5px;
+}
+

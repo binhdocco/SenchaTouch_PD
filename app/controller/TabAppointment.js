@@ -3,7 +3,8 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 	requires:[	
 		'PatientDiary.view.tab.appointment.AppointmentAdd',
 		'PatientDiary.view.tab.appointment.AppointmentEdit',
-		'PatientDiary.view.tab.appointment.AppointmentAllList'	
+		'PatientDiary.view.tab.appointment.AppointmentAllList',
+		'PatientDiary.view.tab.appointment.AppointmentDetail'	
 	],
     config: {
         refs: {		
@@ -15,6 +16,9 @@ Ext.define('PatientDiary.controller.TabAppointment', {
         },//end refs
         control: {
 			tabAppointment: {
+				initialize: function() {
+					PatientDiary.app.on('appointment_passed', this.onAppointmentPassed, this);
+				},
 				pop: function(me, view, level) {
 					if (level != 3) {
 						this.getTabAppointmentMenuButton().show(); 
@@ -32,7 +36,7 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 			'tab_appointment_appointmentadd textfield[name = "date"]' : {
 				focus: function(tf) {
 					//console.log('xxxx');
-					var dp = this.getDatePicker(new Date(), this.getAppointmentAdd());
+					var dp = this.getDatePicker(new Date(), this.getAppointmentAdd(), tf);
 					Ext.Viewport.add(dp);
 					dp.show();
 				}
@@ -48,7 +52,7 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 			'tab_appointment_appointmentedit textfield[name = "date"]' : {
 				focus: function(tf) {
 					//console.log('xxxx');
-					var dp = this.getDatePicker(new Date(), this.getAppointmentEdit());
+					var dp = this.getDatePicker(new Date(), this.getAppointmentEdit(), tf);
 					Ext.Viewport.add(dp);
 					dp.show();
 				}
@@ -66,7 +70,7 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 			},
 			'tab_appointment_appointmentadd button[title = "appointmentaddcancelbutton"]': {
 				tap: function() {
-					this.getTabAppointment().pop(1);
+					this.getTabAppointment().onBackButtonTap();
 				}
 			},
 			'tab_appointment_appointmentedit button[title = "appointmenteditsubmitbutton"]': {
@@ -74,14 +78,20 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 			},
 			'tab_appointment_appointmentedit button[title = "appointmenteditcancelbutton"]': {
 				tap: function() {
-					this.getTabAppointment().pop(1);
+					this.getTabAppointment().onBackButtonTap();
 				}
 			},
 			'tab_appointment list': {
-				disclose: function(list, record, node, index, event, eOpts) {					
-					var editview = this.getAppointmentEditView();
+				disclose: function(list, record, node, index, event, eOpts) {
+					var editview;	
+					if (record.data.time >= (new Date()).getTime()) {			
+						editview = this.getAppointmentEditView();						
+					} else {
+						editview = this.getAppointmentDetailView();						
+					
+					}			   
 					editview.setAppointmentModel(record);		
-					this.getTabAppointment().push(editview);			   
+					this.getTabAppointment().push(editview);
 				}			
 			},
 			'tab_appointment button[title = "tabappointment_viewallappointments_button"]': {
@@ -93,6 +103,11 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 		}
     },
 	
+	onAppointmentPassed: function(appointmentdata) {
+		this.getTabAppointment().refreshList();
+		Ext.getStore('Appointments').load();
+	},
+	
 	onEditAppointmentClicked: function() {
 		var editview = this.getAppointmentEditView();
 		var me = this;
@@ -101,7 +116,8 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 				me.refreshData(date);
 			});
 		} else {
-			Ext.Msg.alert('Error', 'Required doctor name', Ext.emptyFn);
+			//Ext.Msg.alert('Error', 'Required doctor name', Ext.emptyFn);
+			PatientDiary.app.fireEvent('show_alert', "Error","Require doctor name");
 		}
 	},
 	
@@ -113,14 +129,15 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 				me.refreshData(date);					
 			});
 		} else {
-			Ext.Msg.alert('Error', 'Required doctor name', Ext.emptyFn);
+			//Ext.Msg.alert('Error', 'Required doctor name', Ext.emptyFn);
+			PatientDiary.app.fireEvent('show_alert', "Error","Require doctor name");
 		}
 	},
 	
 	refreshData: function(date) {
 		Ext.getStore('Appointments').load();
 		this.getTabAppointment().refreshListDataForDate(date);
-		this.getTabAppointment().pop(1);	
+		this.getTabAppointment().onBackButtonTap();	
 	},
 
 	onAppointmentAddClicked: function() {
@@ -153,20 +170,24 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 			this._timepicker = Ext.create('Ext.ux.TimePicker', {
 				useTitles : true,
 				value : tf.getValue() //date.format('h:MM TT')//"11:30 AM"
-			});
-			this._timepicker.on('change', this.onTimePickerDone, this, {view: view});
-		}
+			});			
+		}		
+		this._timepicker.un('change', this.onTimePickerDone, this);
+		this._timepicker.on('change', this.onTimePickerDone, this, {view: view});
 		this._timepicker.setValue(tf.getValue());
 		return this._timepicker;
 	},
 	
-	getDatePicker: function(date, view) {
+	getDatePicker: function(date, view, tf) {
 		if (!this._datepicker) {
 			this._datepicker = Ext.create('Ext.picker.Date', {
 				value: date
-			});
-			this._datepicker.on('change', this.onDatePickerDone, this, {view: view});
-		}
+			});			
+		}		
+		this._datepicker.un('change', this.onDatePickerDone, this);
+		this._datepicker.on('change', this.onDatePickerDone, this, {view: view});
+		var st = tf.getValue();
+		this._datepicker.setValue(new Date(st.replace(/(\d{2})\/(\d{2})\/(\d{4})/,'$3-$2-$1')));//26/04/2013 -> 2013/04/26
 		return this._datepicker;
 	},
 
@@ -176,6 +197,12 @@ Ext.define('PatientDiary.controller.TabAppointment', {
 			this._appoinmentAddView = Ext.create('PatientDiary.view.tab.appointment.AppointmentAdd');			
 		}
 		return this._appoinmentAddView;
+	},
+	getAppointmentDetailView: function() {
+		if (!this._appoinmentDetailView) {
+			this._appoinmentDetailView = Ext.create('PatientDiary.view.tab.appointment.AppointmentDetail');			
+		}
+		return this._appoinmentDetailView;
 	},
 	getAppointmentEditView: function() {
 		if (!this._appoinmentEditView) {

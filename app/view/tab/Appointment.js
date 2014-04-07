@@ -4,9 +4,10 @@ Ext.define('PatientDiary.view.tab.Appointment', {
     requires: [
 		'PatientDiary.view.tab.appointment.AppointmentSelectedDateList'
 	],
-    config: {       
+    config: {   
+		title:'',    //
 		localize:true,
-        locales:{
+	    locales:{
         	title:'APPOINTMENT_TITLE'
         },  
 		autoDestroy: false,
@@ -33,7 +34,7 @@ Ext.define('PatientDiary.view.tab.Appointment', {
                     }
 				},
 				{
-					iconCls:'add_icon',
+					iconCls:'add_icon_menu',
 					align: 'right',
 					hideAnimation:{
                         type: 'fadeOut',
@@ -51,6 +52,10 @@ Ext.define('PatientDiary.view.tab.Appointment', {
    },
    initialize:function(){
    		this.callParent(arguments);
+		
+		PatientDiary.app.on('day_changed', this.onDayChanged, this);
+		//PatientDiary.app.on('appointment_passed', this.onAppointmentPassed, this);
+		
 		var list = this.getList();
    		var calendarView = this.getCalendarView();
 		var thisObj = this;
@@ -61,9 +66,9 @@ Ext.define('PatientDiary.view.tab.Appointment', {
          /*calendarView.addListener("add",function(me,newDate){
         	Ext.Msg.alert('Add', "New Item", Ext.emptyFn);
         },this);*/
-        this.add({
-        	xtype:'container',
-        	//title:'Appointment',
+		var cmp = Ext.create('Ext.Container', {
+        	//xtype:'container',
+        	
         	layout:{
         		type:'vbox'
         	},
@@ -79,7 +84,11 @@ Ext.define('PatientDiary.view.tab.Appointment', {
 					items: [
 						{
 							xtype: 'button',
-							text: 'View all appointments',
+							text: '',//View all appointments
+							localize:true,
+					        locales:{
+					        	text:'VIEW_ALL_APPOINTMENTS_BUTTON_LABEL'
+					        },  
 							cls: 'crestor-button-rectangle',
 							style: {
 								'margin-bottom': '6px',
@@ -92,11 +101,28 @@ Ext.define('PatientDiary.view.tab.Appointment', {
 				}
 			]
 		});
+        this.add(cmp);
 	
 		
 		//show list appointments of today
 		var today = new Date();
 		this.getListDataForDate(today);
+		
+		//Ux.locale.Manager.applyLocaleForCmp(this);
+		
+		var viewAllBtn = this.down('button');
+		Ux.locale.Manager.applyLocaleForCmp(viewAllBtn);
+   },
+   
+   onDayChanged: function() {
+   		var calendarView = this.getCalendarView();
+		calendarView.refresh();
+   },
+   
+   refreshList: function(appointmentdata) {
+   		//console.log('onAppointmentPassed');
+		var list = this.getList();
+		list.getStore().load();
    },
    
    getListDataForDate: function(date) {
@@ -121,9 +147,9 @@ Ext.define('PatientDiary.view.tab.Appointment', {
 		//this.getListDataForDate(date);
    },
    
-   createView: function() {
+   /*createView: function() {
    		var calendarView = this.getCalendarView();
-   },
+   },*/
    
    getCalendarView: function() {
    		if (!this._calendarView) {

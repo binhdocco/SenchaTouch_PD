@@ -5,7 +5,11 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
     		     
     ],
     config: {
-		title: 'New Appointment',
+		title: '',//New Appointment 
+		localize:true,
+	    locales:{
+	    	title:'NEW_APPOINTMENT_LABEL'
+	    },
         layout:{
 			type:'vbox'
 		},
@@ -39,32 +43,59 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
 	                },
 					{
 	                    xtype: 'textfield',
-	                    placeHolder:'Doctor name*',	                    
+	                    placeHolder:'',	//Doctor name*	                    
+	                    localize:true,
+					    locales:{
+					    	placeHolder:'DOCTOR_NAME_TEXT',
+							label: null
+					    },                  
 	                    cls:'appointmentadd_doctorname_field',
 						name: 'doctorname'	                    
 	                },
 					{
 	                    xtype: 'textfield',
-	                    placeHolder:'Phone',	                    
+						label: '',
+	                    placeHolder:'',//Phone	
+						localize:true,
+					    locales:{
+					    	placeHolder:'PHONE_TEXT',
+							label: null
+					    },                     
 	                    cls:'appointmentadd_phone_field',
 						name: 'phone'	                    
 	                },
 					{
 	                    xtype: 'textfield',
-	                    placeHolder:'Location',	                    
+						label: '',
+	                    placeHolder:'',//Location	 
+						localize:true,
+					    locales:{
+					    	placeHolder:'LOCATION_TEXT',
+							label: null
+					    },                    
 	                    cls:'appointmentadd_location_field',
 						name: 'location'	                    
 	                },
 					{
 	                    xtype: 'textareafield',
-	                    placeHolder:'Note on required pre-tests',	                    
+						label: '',
+	                    placeHolder:'',//Note on required pre-tests	    
+	                    localize:true,
+					    locales:{
+					    	placeHolder:'NOTE_TEXT',
+							label: null
+					    },                
 	                    cls:'appointmentadd_note_field',
 						name: 'note',
 						maxRows: 6			                    
 	                },
 					{
 						xtype: 'selectfield',
-	                    label: 'Add reminder',
+	                    label: '',//Add reminder
+	                    localize:true,
+					    locales:{
+					    	label:'ADD_REMINDER_LABEL'
+					    },
 						cls: 'appointmentadd_reminder_field',
 	                    options: [						
 							{text: '1 minute before',  value: '1'},	//minute
@@ -89,14 +120,22 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
 						items:[
 							{
 								xtype: 'button',
-								text: 'CREAT',
+								text: '',//SUBMIT
+								localize:true,
+							    locales:{
+							    	text:'SUBMIT_BUTTON_LABEL'
+							    },
 								cls:'submit_button',
 								flex: 1,
 								title: 'appointmentaddsubmitbutton'
 							},
 							{
 								xtype: 'button',
-								text: 'CANCEL',
+								text: '',//CANCEL
+								localize:true,
+							    locales:{
+							    	text:'CANCEL_BUTTON_LABEL'
+							    },
 								cls:'cancel_button',
 								flex: 1,
 								title: 'appointmentaddcancelbutton'
@@ -111,6 +150,14 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
 	initialize: function() {
 		this.callParent(arguments);
 		//this.assignFields(true, true);
+		Ux.locale.Manager.applyLocaleForCmp(this);
+		Ux.locale.Manager.applyLocaleForCmp(this.down('button[title = "appointmentaddsubmitbutton"]'));
+		Ux.locale.Manager.applyLocaleForCmp(this.down('button[title = "appointmentaddcancelbutton"]'));
+		Ux.locale.Manager.applyLocaleForCmp(this.down('selectfield'));
+		Ux.locale.Manager.applyLocaleForCmp(this.down('textareafield[name = "note"]'));
+		Ux.locale.Manager.applyLocaleForCmp(this.down('textfield[name = "doctorname"]'));
+		Ux.locale.Manager.applyLocaleForCmp(this.down('textfield[name = "phone"]'));
+		Ux.locale.Manager.applyLocaleForCmp(this.down('textfield[name = "location"]'));
 	},
 	
 	checkDataField: function() {
@@ -121,7 +168,8 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
 	saveData: function(callback) {
 		var me = this;
 		if (me._selectedDate.getTime() < (new Date()).getTime()) {
-			Ext.Msg.alert('Error', 'The date or time has passed', Ext.emptyFn);
+			//Ext.Msg.alert('Error', 'The date or time has passed', Ext.emptyFn);
+			PatientDiary.app.fireEvent('show_alert', "Error","The date or time has passed");
 			return;
 		}
 		var doctorname = me._doctorField.getValue().trim();
@@ -156,6 +204,15 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
 		
 		var appModel = Ext.create('PatientDiary.model.Appointment', data);
 		appModel.save(function() {
+			
+			//PatientDiary.util.CommonUtil.prevDoctorData = data;
+			if (!PatientDiary.util.CommonUtil.doctorModel) {
+				PatientDiary.util.CommonUtil.doctorModel = Ext.create('PatientDiary.model.System');			
+				PatientDiary.util.CommonUtil.doctorModel.data.name = 'doctor';
+			}
+			PatientDiary.util.CommonUtil.doctorModel.data.value = doctorname + ';;' + phone + ';;' + location;		
+			PatientDiary.util.CommonUtil.doctorModel.save();
+			
 			callback(me._selectedDate);
 		});
 	},
@@ -217,5 +274,14 @@ Ext.define('PatientDiary.view.tab.appointment.AppointmentAdd', {
 		if (!me._reminderField)
 			me._reminderField = me.down('selectfield[name = "reminderoptions"]');
 		if (reset) me._reminderField.setValue('0.01');	
+		
+		//show previous doctor data 
+		if (PatientDiary.util.CommonUtil.doctorModel) {
+			var doctorInfo = PatientDiary.util.CommonUtil.doctorModel.data.value.split(';;');
+			//console.log(doctorInfo);
+			me._doctorField.setValue(doctorInfo[0]);
+			me._phoneField.setValue(doctorInfo[1]);
+			me._locationField.setValue(doctorInfo[2]);			
+		}
 	}
  });   

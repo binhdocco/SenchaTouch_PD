@@ -31,7 +31,11 @@ Ext.define('PatientDiary.view.tab.progress.RecordDetail', {
 				items: [
 					{
 						xtype: 'button',
-						text: 'View full history',
+						text: '',//View full history
+						localize:true,
+				        locales:{
+				        	text:'VIEW_FULL_HISTORY_BUTTON_LABEL'
+				        },
 						cls: 'crestor-button-rectangle',
 						style: {
 							'margin-bottom': '6px',
@@ -50,6 +54,8 @@ Ext.define('PatientDiary.view.tab.progress.RecordDetail', {
 		this.assignVars();
 		
 		PatientDiary.app.on('update_progresschart', this.update_view, this);
+		var viewAllBtn = this.down('button');
+		Ux.locale.Manager.applyLocaleForCmp(viewAllBtn);
    },
    
    update_view: function() {

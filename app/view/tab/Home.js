@@ -240,6 +240,17 @@ Ext.define('PatientDiary.view.tab.Home', {
 		else me._locationLabel.setHtml('NA');
    },
    
+   updateEmptyAppointmentInfo: function() {   		
+   		var me = this;
+		me._nextAppointmentData = null;
+		
+		me._dateLabel.setHtml('...');
+		me._timeLabel.setHtml('...');
+		me._doctorLabel.setHtml('...'); 
+		me._phoneLabel.setHtml('...');
+		me._locationLabel.setHtml('...');		
+   },
+   
    showBloddPressureChart: function() {
    		var me = this;
 		me._historyChart.showChart({pos:1, type: 'other'});

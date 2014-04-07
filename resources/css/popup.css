@@ -1,3 +1,36 @@
+.code-activation-container {
+	z-index: 3;
+	background-color: transparent;
+}
+
+.code-activation-buttons {		
+	margin: 35px 45px;
+}
+.code-activation-intro {
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	text-align:center;
+	color: #7c766d;
+	margin-top: 25px;
+	font-size: 20px;
+}
+
+.code-activation-intro span {
+	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
+	font-weight: bold;
+}
+
+.alert-container {
+	z-index: 5;
+	background-color: #333;
+	opacity: 0.5;
+}
+
+.popup-alert-container {
+	z-index: 6;
+	background-color: transparent;	
+}
+
+
 .popup-container {
 	z-index: 3;
 	background-color: #333;
@@ -28,7 +61,6 @@
 	padding-top: 7px;
 }
 
-
 .popup-message-text-box {
 	color: #766f67;
 	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
@@ -38,6 +70,25 @@
 	margin-left: 20px;
 	width: 230px;
 }
+
+
+.popup-message-text-box.alert {
+	text-align: center;
+	height: 65px;
+	line-height: 20px;
+	margin-bottom: 12px;
+	margin-top: 13px;
+	width: 230px;
+}
+
+.popup-message-text-box.alert .content {
+	display: table-cell;
+	vertical-align: middle;	
+	height: 65px;
+	width: 230px;
+	
+}
+
 
 .popup-message-text-box span {	
 	font-family: 'Crestor-ITCAVANTGARDESTD-MD';
@@ -57,4 +108,24 @@
 
 .popup-message-close-btn .x-button-label {
 	font-size: 16px;
+	margin-top: 5px;
+}
+
+.popup-alert-box {
+	width: 270px;
+	height: 180px;
+	background-color: white;
+	border-radius: 5px;
+	margin-left: 25px;
+}
+
+.popup-alert-title-box {
+	color: white;
+	font-family: 'Crestor-ITCAVANTGARDESTD-BK';
+	text-align: center;
+	height: 35px;
+	background-color: #12ace2;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	padding-top: 7px;
 }

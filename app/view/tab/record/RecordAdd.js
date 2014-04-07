@@ -51,10 +51,10 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 					{
 						xtype:'numberfield',
 						label: '',//Fasting glucose<br/>(mmol/L)
-						localize:true,
+						/*localize:true,
 				        locales:{
 				        	label:'FASTING_GLUCOSE_LABEL'
-				        },
+				        },*/
 						name: 'fasting_glucose',
 						value:'0',												
 					},
@@ -62,10 +62,10 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 						xtype:'numberfield',
 						//label: 'Total cholesterol<br/>(mmol/L)',
 						label: '',//Fasting glucose<br/>(mmol/L)
-						localize:true,
+						/*localize:true,
 				        locales:{
 				        	label:'TOTAL_CHOLESTEROL_LABEL'
-				        },
+				        },*/
 						value:'0',
 						name: 'total_cholesterol'	
 					},
@@ -73,10 +73,10 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 						xtype:'numberfield',
 						//label: "LDL 'Bad' cholesterol<br/>(mmol/L)",
 						label: '',//Fasting glucose<br/>(mmol/L)
-						localize:true,
+						/*localize:true,
 				        locales:{
 				        	label:'LDL_BAD_CHOLESTEROL_LABEL'
-				        },
+				        },*/
 						value:'0',
 						name: 'ldl_bad_cholesterol'						
 					},
@@ -84,32 +84,32 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 						xtype:'numberfield',
 						//label: "HDL 'Good' cholesterol<br/>(mmol/L)",
 						label: '',//Fasting glucose<br/>(mmol/L)
-						localize:true,
+						/*localize:true,
 				        locales:{
 				        	label:'HDL_GOOD_CHOLESTEROL_LABEL'
-				        },
+				        },*/
 						value:'0',
 						name: 'hdl_good_cholesterol'	
 					},
 					{
 						xtype:'numberfield',
 						//label: 'Triglycerides<br/>(mmol/L)',
-						label: '',//Fasting glucose<br/>(mmol/L)
+						/*label: '',//Fasting glucose<br/>(mmol/L)
 						localize:true,
 				        locales:{
 				        	label:'TRIGLYCERIDES_LABEL'
-				        },
+				        },*/
 						value:'0',
 						name: 'trigycerides'	
 					},
 					{
 						xtype:'numberfield',
 						//label: 'Total cholesterol/HDL<br/>ratio',
-						label: '',//Fasting glucose<br/>(mmol/L)
+						/*label: '',//Fasting glucose<br/>(mmol/L)
 						localize:true,
 				        locales:{
 				        	label:'TOTAL_CHOLESTEROL_HDL_LABEL'
-				        },
+				        },*/
 						value:'0',
 						name: 'total_cholesterol_hdl_ratio'
 					},
@@ -161,7 +161,25 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 	},
 	
 	setLocale : function(locale) {
-		this.callParent(arguments);
+		var me = this;
+		me.callParent(arguments);
+		me._FASTING_GLUCOSE_LABEL = Ux.locale.Manager.get('FASTING_GLUCOSE_LABEL', locale);
+		me._fastingGlucoseField.setLabel(me._FASTING_GLUCOSE_LABEL + '<br/>(mmol/L)');
+		
+		me._TOTAL_CHOLESTEROL_LABEL = Ux.locale.Manager.get('TOTAL_CHOLESTEROL_LABEL', locale);
+		me._totalCholesterolField.setLabel(me._TOTAL_CHOLESTEROL_LABEL + '<br/>(mmol/L)');
+		
+		me._LDL_BAD_CHOLESTEROL_LABEL = Ux.locale.Manager.get('LDL_BAD_CHOLESTEROL_LABEL', locale);
+		me._ldlBadCholesterolField.setLabel(me._LDL_BAD_CHOLESTEROL_LABEL + '<br/>(mmol/L)');
+		
+		me._HDL_GOOD_CHOLESTEROL_LABEL = Ux.locale.Manager.get('HDL_GOOD_CHOLESTEROL_LABEL', locale);
+		me._hdlGoodCholesterolField.setLabel(me._HDL_GOOD_CHOLESTEROL_LABEL + '<br/>(mmol/L)');
+		
+		me._TRIGLYCERIDES_LABEL = Ux.locale.Manager.get('TRIGLYCERIDES_LABEL', locale);
+		me._trigyceridesField.setLabel(me._TRIGLYCERIDES_LABEL  + '<br/>(mmol/L)');
+		
+		me._TOTAL_CHOLESTEROL_HDL_LABEL = Ux.locale.Manager.get('TOTAL_CHOLESTEROL_HDL_LABEL', locale);
+		me._totalCholesterolHdlRatioField.setLabel(me._TOTAL_CHOLESTEROL_HDL_LABEL);
 	},
 	
 	updateSelectedDate: function(date) {
@@ -252,7 +270,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 		var mm = me._selectedDate.getMonth().toString();
 		var yy = me._selectedDate.getFullYear().toString();
 		var dayname = me._selectedDate.getDayName();
-		var localetime = (new Date()).toLocaleTimeString();
+		var localetime = (new Date()).format('h:MM TT');//toLocaleTimeString();
 		var monthname = me._selectedDate.getShortMonthName().toUpperCase();
 		
 		var fastingGlucoseValue = me._fastingGlucoseField.getValue();				
@@ -265,7 +283,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 			dateValue: dateValue,
 			data:[
 				{
-					title: 'Fasting glucose',
+					title: me._FASTING_GLUCOSE_LABEL,//'Fasting glucose',
 					unit: '(mmol/L)',
 					value: fastingGlucoseValue,
 					color: 'orange',
@@ -281,7 +299,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 					localetime:localetime
 				},
 				{
-					title: 'Total cholesterol',
+					title: me._TOTAL_CHOLESTEROL_LABEL,//'Total cholesterol',
 					unit: '(mmol/L)',
 					value: totalCholesterolValue,
 					color: 'blue',
@@ -296,7 +314,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 					monthname: monthname,
 					localetime:localetime
 				},{
-					title: "LDL 'Bad' cholesterol",
+					title: me._LDL_BAD_CHOLESTEROL_LABEL,//"LDL 'Bad' cholesterol",
 					unit: '(mmol/L)',
 					value: ldlBadCholesterolValue,
 					color: 'blue',
@@ -311,7 +329,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 					monthname: monthname,
 					localetime:localetime
 				},{
-					title: "HDL 'Good' cholesterol",
+					title: me._HDL_GOOD_CHOLESTEROL_LABEL,//"HDL 'Good' cholesterol",
 					unit: '(mmol/L)',
 					value: hdlGoodCholesterolValue,
 					color: 'blue',
@@ -326,7 +344,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 					monthname: monthname,
 					localetime:localetime
 				},{
-					title: 'Trigycerides',
+					title: me._TRIGLYCERIDES_LABEL,//'Trigycerides',
 					unit: '(mmol/L)',
 					value: trigyceridesValue,
 					color: 'orange',
@@ -341,7 +359,7 @@ Ext.define('PatientDiary.view.tab.record.RecordAdd', {
 					monthname: monthname,
 					localetime:localetime
 				},{
-					title: 'Total cholesterol/HDL ratio',
+					title: me._TOTAL_CHOLESTEROL_HDL_LABEL,//'Total cholesterol/HDL ratio',
 					unit: '',
 					value: totalCholesterolHdlRatioValue,
 					color: 'blue',

@@ -34,27 +34,45 @@ Ext.define('PatientDiary.view.login.SignIn', {
 				items:[
 					{
 	                    xtype: 'emailfield',
-	                    placeHolder:'username',
+	                    //placeHolder:'username',
+						localize:true,
+				        locales:{
+				        	placeHolder:'USERNAME_TEXT'
+				        }, 
 	                    id:'sign_in_username',
 	                    cls:'email_field'
 	                },
 	                {
 	                    xtype: 'passwordfield',
 	                    cls:'password_field',
-						placeHolder:'password',
+						//placeHolder:'password',
+						localize:true,
+				        locales:{
+				        	placeHolder:'PASSWORD_TEXT'
+				        },
 	                    id:'sign_in_password'
 	                }
 					,{
 			        	xtype:'button',
 			        	id:'sign_in_button',
-			        	text:'SIGN IN',
-			        	cls:'signin_button'
+			        	//text:'SIGN IN',
+						localize:true,
+				        locales:{
+				        	text:'SIGNIN_BUTTON_LABEL'
+				        }, 
+			        	cls:'signin_button',
+						hidden: true
 			        },
 			        {
 			        	xtype:'button',
-			        	text: 'REGISTER',
+			        	//text: 'REGISTER',
+						localize:true,
+				        locales:{
+				        	text:'REGISTER_BUTTON_LABEL'
+				        }, 
 			        	id:'sign_up_button',
-			        	cls:'register_button'
+			        	cls:'register_button',
+						hidden: true
 				   	}
 
 				]

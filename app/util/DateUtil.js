@@ -140,12 +140,25 @@
 	    var onejan = new Date(this.getFullYear(),0,1);
 	    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
 	};	
+	Date.prototype.getSuffix = function() {
+	    switch (this.getDate()) {
+            case 1:
+            case 21:
+            case 31:
+                return "st";
+            case 2:
+            case 22:
+                return "nd";
+            case 3:
+            case 23:
+                return "rd";
+            default:
+                return "th";
+        }
+	};	
 	
 	Date.prototype.recordFormat = function() {
-		var s = '';
-		if (this.getDate() == 1) s = '1<sup>st</sup>';
-		else if (this.getDate() == 2) s = '2<sup>nd</sup>';
-		else s = this.getDate() + '<sup>th</sup>';
+		var s = this.getDate() + '<sup>' + this.getSuffix() + '</sup>';
 		s += ' ' + this.getShortMonthName() + ' ' + this.getFullYear();
 		return s;
 	}
